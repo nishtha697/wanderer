@@ -1,10 +1,9 @@
-import enteries from './data/enteries.json';
+import enteries from "./data/enteries.json";
 
 const posts = (state = enteries, action) => {
     switch (action.type) {
-        case 'fetch-all-posts':
-            return (action.posts)
-            break;
+        case "fetch-all-posts":
+            return action.posts;
 
         case 'like-post':
             return state.map(post => {
@@ -26,21 +25,16 @@ const posts = (state = enteries, action) => {
             });
             break;
 
-        case 'delete-post':
-            return state.filter(post => post._id !== action.post._id);
-            break;
+        case "delete-post":
+            return state.filter((post) => post._id !== action.post._id);
 
-        case 'create-post':
+        case "create-post":
             debugger;
-            return ([
-                action.post,
-                ...state,
-            ]);
-            break;
+            return [action.post, ...state];
+
         default:
-            return (state);
+            return state;
     }
 };
 
 export default posts;
-

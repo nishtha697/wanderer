@@ -13,6 +13,11 @@ import Login from "./components/Login/Login";
 import Register from "./components/Login/Register";
 import Home from "./components/Home/Home";
 import "./index.css";
+import SuperMap from "./components/Map/SuperMap/SuperMap";
+import MyMap from "./components/Map/MyMap/MyMap";
+import Navbar from "./components/NavBar/Navbar";
+import SearchComponent from "./components/SearchComponent";
+import User from "./components/User";
 
 const reducer = combineReducers({posts, user})
 
@@ -28,6 +33,9 @@ function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
+                <Route name="search" path={["/search/:result"]}>
+                    <SearchComponent />
+                </Route>
                 {/*<Route path="/verifications" element={<Verifications/>}/>*/}
                 <Route path={["/profile"]} exact={true}>
                     <Profile/>
