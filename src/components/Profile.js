@@ -27,7 +27,7 @@ const Profile = () => {
                         <Link className="nav-link" to="#">Map</Link>
                     </li>
                 </ul>
-                <ul className="nav navbar d-inline-flex justify-content-center dropdown-item">
+                <ul className="nav navbar d-inline-flex justify-content-center">
                     <li className="nav nav-item ps-2 pe-2">
                         <Link className="nav-link logout" to="#">Log out</Link>
                     </li>
