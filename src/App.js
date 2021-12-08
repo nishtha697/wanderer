@@ -1,24 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import './vendors/bootstrap-5.1.3-dist/css/bootstrap.min.css';
+import './vendors/fontawesome/css/all.min.css';
+//import "./vendors/bootstrap/bootstrap.min.css";
+
+import {BrowserRouter, Route} from "react-router-dom";
+import Profile from "./components/Profile.js";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Route path={["/", "/profile"]} exact={true}>
+        <Profile/>
+      </Route>
+    </BrowserRouter>
   );
 }
 
