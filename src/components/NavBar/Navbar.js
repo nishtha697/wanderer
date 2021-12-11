@@ -27,6 +27,7 @@ const Navbar = ({inMapMode}) => {
             <ul className="nav navbar d-inline-flex justify-content-center">
                 <li className="nav nav-item ps-2 pe-2">
                     <Link className="logout btn btn-danger wd-logout-btn wd-round-btn" to="#">Log out</Link>
+
                 </li>
             </ul>
         </div>

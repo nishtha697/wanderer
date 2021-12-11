@@ -1,28 +1,47 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ReactMapGL, {Marker, Popup} from "react-map-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {format} from "timeago.js";
 import "../../css/profile.css";
+import {Link} from "react-router-dom";
+import {likePost} from "../../services/postService";
+import {useDispatch} from "react-redux";
 
 const Post = ({posts}) => {
+    const latestPost = posts.reduce((a, b) => (a.createdAt > b.createdAt ? a : b));
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        fetch(`http://localhost:4000/api/user/${latestPost.user_Id}`)
+            .then(response => response.json())
+            .then((user) => setUser(user))
+    }, []);
+
+    const latestLatitude = Number.isFinite(latestPost.latitude)
+                           ? latestPost.latitude : Number.parseFloat(
+            latestPost.latitude['$numberDouble']);
+    const latestLongitude = Number.isFinite(latestPost.longitude)
+                            ? latestPost.longitude : Number.parseFloat(
+            latestPost.longitude['$numberDouble']);
 
     const [viewport, setViewport] = useState({
                                                  width: "100%",
                                                  height: 400,
-                                                 latitude: 42.3601,
-                                                 longitude: -71.0589,
+                                                 latitude: latestLatitude,
+                                                 longitude: latestLongitude,
                                                  zoom: 8,
                                              });
-    const [currentPlaceId, setCurrentPlaceId] = useState(null);
 
-    // const dispatch = useDispatch();
-    // const deletePostClickHandler = () => {
-    //     deletePost(dispatch, post);
-    // };
+    const [currentPlaceId, setCurrentPlaceId] = useState(null);
 
     const popupMarker = (id, lat, long) => {
         setCurrentPlaceId(id);
         setViewport({...viewport, latitude: lat, longitude: long});
+    };
+
+    const dispatch = useDispatch();
+    const likeClickHandler = (post) => {
+        likePost(dispatch, post);
     };
 
     return (
@@ -30,14 +49,20 @@ const Post = ({posts}) => {
         <li className="wd-post list-group-item">
             <div className="row">
                 <div className="col-1">
-                    <img className="wd-profile-image" src={`${process.env.PUBLIC_URL}/images/profile-image.png`}
+                    <img className="wd-profile-image"
+                         src={`${process.env.PUBLIC_URL}/images/profile-image.png`}
                          alt="profile image"/>
                 </div>
                 <div className="col-11 wd-image-content">
-                    <h6 className="wd-user">
-                    Nishtha Goswami
-                </h6>
-                    <p>Living my best life by checking the places in my bucket list off.</p>
+                    <Link className="wd-user" to={{
+                        pathname: `/profile/${user._id}`,
+                        state: {user: user}
+                    }}>{user.firstName} {user.lastName} </Link>
+                    &middot;
+                    <span className="wd-timestamp">{new Date(
+                        latestPost.createdAt).toDateString()}</span>
+                    <p className="wd-popup-title">{latestPost.title}</p>
+                    <p>{latestPost.description}</p>
                     <ReactMapGL
                         className="wd-map"
                         {...viewport}
@@ -46,11 +71,18 @@ const Post = ({posts}) => {
                         onViewportChange={(viewport) => setViewport(viewport)}
                     >
                         {posts.map(post => {
+                            const latitude = Number.isFinite(post.latitude)
+                                             ? post.latitude : Number.parseFloat(
+                                    post.latitude['$numberDouble']);
+                            const longitude = Number.isFinite(post.longitude)
+                                              ? post.longitude : Number.parseFloat(
+                                    post.longitude['$numberDouble']);
+
                             return (
                                 <>
                                     <Marker
-                                        latitude={post.latitude}
-                                        longitude={post.longitude}
+                                        latitude={latitude}
+                                        longitude={longitude}
                                         offsetLeft={-3.5 * viewport.zoom}
                                         offsetTop={-7 * viewport.zoom}
                                     >
@@ -59,25 +91,39 @@ const Post = ({posts}) => {
                                             color: "orangered",
                                             cursor: "pointer"
                                         }}
-                                           onClick={() => popupMarker(post._id,
-                                                                      post.latitude,
-                                                                      post.longitude)}
+                                           onClick={() => popupMarker(post._id, latitude,
+                                                                      longitude)}
                                         />
                                     </Marker>
                                     {post._id === currentPlaceId && (
                                         <Popup
                                             key={post._id}
-                                            latitude={post.latitude}
-                                            longitude={post.longitude}
+                                            latitude={latitude}
+                                            longitude={longitude}
                                             closeButton={true}
                                             closeOnClick={false}
                                             onClose={() => setCurrentPlaceId(null)}
                                             anchor="left"
                                         >
-                                            <div className="card" style={{border: "none", width: "150px"}}>
+                                            <div className="card"
+                                                 style={{border: "none", width: "auto", maxWidth: "300px"}}>
                                                 <h6 className="wd-popup">{post.title}</h6>
                                                 <p className="wd-popup wd-popup-description">{post.description}</p>
-                                                <span className="wd-popup-date">1 hour ago</span>
+                                                <span className="wd-popup-date">{format(
+                                                    post.createdAt)}</span>
+                                                <div className="wd-icon"
+                                                     onClick={() => likeClickHandler(post)}>
+                                                    <a className="wd-post-icon" href="#">
+                                                        {
+                                                            post.liked && <i className="fas fa-heart me-2"
+                                                                             style={{color: post.liked ? "red" : "white"}}/>
+                                                        }
+                                                        {
+                                                            !post.liked && <i className="far fa-heart me-2"/>
+                                                        }
+                                                        <span className="wd-icon-text">{post.likes}</span>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </Popup>
                                     )}
