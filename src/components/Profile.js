@@ -1,41 +1,14 @@
 import React from 'react';
 import "../css/profile.css";
-import {Link} from "react-router-dom";
+import Navbar from "./NavBar/Navbar.js";
 
 const Profile = () => {
     return (
         <>
-            <div
-                className="nav justify-content-between sticky-top nav-pills shadow ps-5 pe-5 pb-2 pt-2 mb-2 menu">
-                <Link className="navbar-brand" href="#">
-                    <img src={`${process.env.PUBLIC_URL}/images/img_1.png`} alt=""
-                         height="50"/>
-                </Link>
-                <ul className="nav navbar d-inline-flex justify-content-center ">
-                    {/*<button className="btn btn-secondary dropdown-toggle" type="button"*/}
-                    {/*        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"*/}
-                    {/*        aria-expanded="false">*/}
-                    {/*    Dropdown button*/}
-                    {/*</button>*/}
-                    <li className="nav nav-item ps-2 pe-2">
-                        <Link className="nav-link" to="#">Edit profile</Link>
-                    </li>
-                    <li className="nav nav-item ps-2 pe-2 ">
-                        <Link className="nav-link" to="#">New post</Link>
-                    </li>
-                    <li className="nav nav-item ps-2 pe-2 ">
-                        <Link className="nav-link" to="#">Map</Link>
-                    </li>
-                </ul>
-                <ul className="nav navbar d-inline-flex justify-content-center">
-                    <li className="nav nav-item ps-2 pe-2">
-                        <Link className="nav-link logout" to="#">Log out</Link>
-                    </li>
-                </ul>
-            </div>
+            <Navbar />
             <div className="container">
                 <div className="row">
-                    <div className="col-2"></div>
+                    <div className="col-2"/>
                     <div className="col-8">
                         <div className="profile-header">
                             <img className="rounded image" alt="banner"
@@ -70,19 +43,14 @@ const Profile = () => {
                                     <a aria-current="page" className="nav-link active" href="for-you.html">Feed</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="trending.html">Photos</a>
+                                    <a className="nav-link" href="trending.html">New Post</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="news.html">Maps</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="sports.html">Search</a>
+                                    <a className="nav-link" href="news.html">Map</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-
-
 
                     <div className="col-2"></div>
                 </div>

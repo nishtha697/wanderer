@@ -136,3 +136,26 @@ a {
     border: none;
     color: black;
 }
+
+.wd-search-twitter {
+    border-radius: 25px;
+    font-family: "Helvetica Neue";
+    flex: 1;
+    width: 600px;
+    padding-left: 50px;
+}
+
+.fa-map-marker-alt {
+    position: absolute;
+    padding: 0.7rem 0rem 0.7rem 0.7rem;
+    color: #e32d8f;
+}
+
+
+.wd-logout-btn {
+    margin-top: 5px;
+    width: 100%;
+    border-radius: 25px;
+    font-size: small;
+    font-weight: bold;
+}
