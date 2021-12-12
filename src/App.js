@@ -1,39 +1,37 @@
 import "./App.css";
-import React, { useRef, useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./vendors/bootstrap-5.1.3-dist/css/bootstrap.min.css";
+import "./vendors/fontawesome/css/all.min.css";
+// import "./vendors/bootstrap/bootstrap.min.css";
+import { combineReducers, createStore } from "redux";
+import { Provider } from "react-redux";
+import { BrowserRouter, Route } from "react-router-dom";
+import Profile from "./components/ProfileScreen/Profile.js";
+import posts from "./reducers/posts";
+import SuperMap from "./components/Map/SuperMap/SuperMap";
+import MyMap from "./components/Map/MyMap/MyMap";
 
-// import mapboxgl from "mapbox-gl";
-// import "bootstrap/dist/css/bootstrap.min.css";
-import HomeScreen from "./components/HomeScreen";
-import SearchResults from "./components/SearchResults";
-import Map from "./components/Map";
+const reducer = combineReducers({ posts });
+
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 function App() {
-  // const mapContainer = useRef(null);
-  // const map = useRef(null);
-  // const [lng, setLng] = useState(-70.9);
-  // const [lat, setLat] = useState(42.35);
-  // const [zoom, setZoom] = useState(9);
-
-  // useEffect(() => {
-  //   if (map.current) return;
-  //   map.current = new mapboxgl.Map({
-  //     container: mapContainer.current,
-  //     style: "mapbox://styles/mapbox/streets-v11",
-  //     center: [lng, lat],
-  //     zoom: zoom,
-  //   });
-  // });
-
   return (
-    <div className="App">
+    <Provider store={store}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/search" element={<SearchResults />} />
-        </Routes>
+        <Route path={["/", "/profile"]} exact={true}>
+          <Profile />
+        </Route>
+        <Route path={["/super"]} exact={true}>
+          <SuperMap />
+        </Route>
+        <Route path={["/mymap"]} exact={true}>
+          <MyMap />
+        </Route>
       </BrowserRouter>
-    </div>
+    </Provider>
   );
 }
 
