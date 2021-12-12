@@ -1,11 +1,13 @@
 import React from 'react';
-import "../css/profile.css";
-import Navbar from "./NavBar/Navbar.js";
+import "../../css/profile.css";
+import PostList from "../PostList/PostList.js";
+import {Link} from "react-router-dom";
+import Navbar from "../NavBar/Navbar";
 
 const Profile = () => {
     return (
         <>
-            <Navbar />
+            <Navbar inMapMode={false}/>
             <div className="container">
                 <div className="row">
                     <div className="col-2"/>
@@ -20,7 +22,7 @@ const Profile = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="profile align-middle">
+                        <div className="profile">
                             <div className="profile-image">
                                 <img className="rounded-circle imageProfile" alt="banner"
                                      src={`${process.env.PUBLIC_URL}/images/profile-image.png`}
@@ -35,28 +37,40 @@ const Profile = () => {
                                 <h4>
                                     Nishtha Goswami
                                 </h4>
-                                <div>123 Followers</div>
+                                <span>Living my best life by checking the places in my bucket list off.</span>
+                                <br/>
+                                <span className="wd-xs pe-3">123 Followers</span>
+                                <span className="wd-xs">123 Following</span>
                             </div>
-                            <button className="btn btn-primary edit">Edit profile</button>
+                            <button className="btn btn-light edit">Edit profile</button>
                             <ul className="nav nav-tabs mt-2">
                                 <li className="nav-item">
-                                    <a aria-current="page" className="nav-link active" href="for-you.html">Feed</a>
+                                    <a aria-current="page" className="nav-link active"
+                                       href="for-you.html">Feed</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="trending.html">New Post</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="news.html">Map</a>
+                                    <Link className={`nav-link`}
+                                          to={`/mymap`} exact={true}>
+                                        My Map
+                                    </Link></li>
+                                <li className="nav-item">
+                                    <Link className={`nav-link`}
+                                          to={`/super`} exact={true}>
+                                        Super Map
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
+                        <PostList/>
                     </div>
 
                     <div className="col-2"></div>
                 </div>
             </div>
         </>
-
     );
 }
 

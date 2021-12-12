@@ -49,7 +49,7 @@
 .profile {
     /*top: -15%;*/
     /*margin-bottom: -15%;*/
-    background-color: #f8f4f4;
+    background-color: #c3d3f3;
     padding: 10px;
 }
 
@@ -148,14 +148,83 @@ a {
 .fa-map-marker-alt {
     position: absolute;
     padding: 0.7rem 0rem 0.7rem 0.7rem;
-    color: #e32d8f;
+    color: dodgerblue;
 }
 
 
 .wd-logout-btn {
     margin-top: 5px;
     width: 100%;
-    border-radius: 25px;
     font-size: small;
     font-weight: bold;
+}
+
+.wd-round-btn {
+    border-radius: 25px;
+}
+
+.mapboxgl-canvas {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.wd-popup {
+    font-size: small;
+}
+
+.wd-popup-description {
+    margin-bottom: 0;
+}
+
+.wd-popup-date {
+    font-size: x-small;
+}
+
+.mapboxgl-popup-content {
+    padding: 10px 15px 10px !important;
+}
+
+.wd-profile-image{
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    float: left;
+}
+
+.list-group-item {
+    border-color: #eeecec;
+    /*background-color: #f8f4f4;*/
+    background-color: ghostwhite;
+
+
+}
+
+.wd-xs {
+    font-size: smaller;
+}
+
+.wd-map {
+    border: solid thin #eeecec;
+}
+
+.wd-profile-nav-link {
+    font-weight: bold;
+}
+
+.wd-add-post {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 20px;
+}
+
+.wd-add-input {
+    border: solid thin lightgrey;
+    border-radius: 5px;
+    font-size: 15px;
 }
