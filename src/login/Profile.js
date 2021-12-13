@@ -26,8 +26,8 @@ const Profile = () => {
     <div>
       <h1>Profile</h1>
       <input
-        value={"welcome " + user.kind + " " + user.username}
-        onChange={(e) => setUser({...user, username: e.target.value})}
+        value={"welcome " + user.role + " " + user.email}
+        onChange={(e) => setUser({...user, email: e.target.value})}
         placeholder="username"
         className="form-control"/>
         <button

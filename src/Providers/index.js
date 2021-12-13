@@ -5,6 +5,9 @@ import {useNavigate} from "react-router-dom";
 import Navigation from "../Nagivation";
 
 const Providers = () => {
+    const [provider, setProvider] = useState({username: ''});
+        const onVerifiedChange = (event) =>
+            setProvider({...provider, verified: true});
     const [user, setUser] = useState({});
     const navigate = useNavigate();
     const getProfile = () => {
@@ -23,51 +26,65 @@ const Providers = () => {
     const [providers, setProviders] = useState([]);
     useEffect(() =>
         service.findAllProviders()
-            .then(providers => setProviders(providers)));
+            .then(providers => setProviders(providers)),[]);
 
-    const [provider, setProvider] = useState({verified: false});
-
-
-    const updateVerification = () =>
-        setProvider({verified: true});
-
+    // const updateVerification = () =>
+    //     setProvider({verified: true});
     const saveVerification = () =>
-        updateVerification
-        service.updateVerification(provider)
-            .then(() => setProviders(
-                providers.map(m => m._id === provider._id ? provider : m)
-            ));
+        setProvider({...provider, verified: true});
 
-    if (user.kind == "admin"){
+        fetch(`${API_URL}/providers/${provider._id}`, {
+
+            method: 'PUT',
+            body: JSON.stringify(provider),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(providers => setProviders(providers));
+
+if (user.role == "provider"){
         return (
             <div>
                 <h1>Profile</h1>
                 <input
-                    value={"welcome " + user.kind + " " + user.username}
+                    value={"welcome " + user.role + " " + user.username}
                     onChange={(e) => setUser({...user, username: e.target.value})}
                     placeholder="username"
                     className="form-control"/>
 
                 <Navigation/>
-                <div>
-                    <h2>providers</h2>
-                    <ul className="list-group">
+                <button  onClick ={saveVerification} className="float-end">verify</button>
+
+                <input className="form-control"
+                       value={provider.verified}
+
+                       onChange={onVerifiedChange}
+                       style={{width: "70%"}}/>
+
+
+
                         {
-
                             providers.map(provider =>
-
                                 <li key={provider._id}
                                     className="list-group-item">
                                     {provider.username}
 
-                                    <button onClick={saveVerification} className="float-end">verify</button>
+                                    <button onClick={() =>   setProvider({...provider, verified: true})
+                                    }
+                                            className="btn btn-primary float-end ms-2">
+                                        Edit
+
+                                    </button>
+
                                 </li>
                             )
                         }
-                    </ul>
-                </div>
+
             </div>
         )
+
     }else{
         return null;
     }

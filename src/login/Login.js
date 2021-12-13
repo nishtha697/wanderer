@@ -1,7 +1,8 @@
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {API_URL} from "../consts";
-import Navigation from "../Nagivation";
+// import Navigation from "../Nagivation";
+import Navbar from "../components/Navbar"
 
 const Login = () => {
   const [user, setUser] = useState({});
@@ -22,8 +23,8 @@ const Login = () => {
     <div>
       <h1>Login</h1>
       <input
-        value={user.username}
-        onChange={(e) => setUser({...user, username: e.target.value})}
+        value={user.email}
+        onChange={(e) => setUser({...user, email: e.target.value})}
         placeholder="username"
         className="form-control"/>
       <input
@@ -37,7 +38,7 @@ const Login = () => {
         onClick={login}>
         Login
       </button>
-      <Navigation/>
+      {/*<Navigation/>*/}
     </div>
   );
 };

@@ -9,13 +9,14 @@ import React from "react";
 import ipad from "./components/Images/ipad.png"
 import map2 from "./components/Images/map2.jpg"
 import pins from "./components/Images/pins.jpg"
+import Navbar from "./components/Navbar"
 import VerificationList from "./Providers/index"
 
 const Home = () => {
   return(
     <div>
         <div className="">
-            {/*<Navbar/>*/}
+            <Navbar/>
 
             <div className = "row mt-5">
                 <div className = "col-2">
