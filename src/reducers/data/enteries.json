@@ -3,9 +3,7 @@
     "_id": {
       "$oid": "61b5d7bbe6228461663f4094"
     },
-    "user_Id": {
-      "$oid": "61b396240840f597b347b7eb"
-    },
+    "user_Id": "61b396240840f597b347b7eb",
     "title": "My evening stroll around Boston Public Park",
     "description": "Loving the atmosphere here",
     "visit_date": "today",
@@ -16,15 +14,13 @@
       "$numberDouble": "-71.0708"
     },
     "createdAt": {
-      "$timestamp": {
-        "t": 1639307280,
-        "i": 29
+      "$date": {
+        "$numberLong": "1639326116140"
       }
     },
     "updatedAt": {
-      "$timestamp": {
-        "t": 1639307280,
-        "i": 30
+      "$date": {
+        "$numberLong": "1639326116140"
       }
     }
   },
@@ -32,9 +28,7 @@
     "_id": {
       "$oid": "61b5d81be6228461663f4096"
     },
-    "user_Id": {
-      "$oid": "61b396240840f597b347b7eb"
-    },
+    "user_Id": "61b396240840f597b347b7eb",
     "title": "Dinner at Boston harbor",
     "description": "The view is amazing plus the delicious food!!! Can't get enough.",
     "visit_date": "today",
@@ -45,15 +39,13 @@
       "$numberDouble": "-71.0504"
     },
     "createdAt": {
-      "$timestamp": {
-        "t": 1639307280,
-        "i": 29
+      "$date": {
+        "$numberLong": "1639326116140"
       }
     },
     "updatedAt": {
-      "$timestamp": {
-        "t": 1639307280,
-        "i": 30
+      "$date": {
+        "$numberLong": "1639326116140"
       }
     }
   },
@@ -61,9 +53,7 @@
     "_id": {
       "$oid": "61b5d821e6228461663f4097"
     },
-    "user_Id": {
-      "$oid": "61b5d7c4e6228461663f4095"
-    },
+    "user_Id": "61b5d7c4e6228461663f4095",
     "title": "Kayaking at Charles river",
     "description": "The fresh breeze and the water. What more do you need? :)",
     "visit_date": "today",
@@ -74,15 +64,13 @@
       "$numberDouble": "-71.5119"
     },
     "createdAt": {
-      "$timestamp": {
-        "t": 1639307280,
-        "i": 29
+      "$date": {
+        "$numberLong": "1639326116140"
       }
     },
     "updatedAt": {
-      "$timestamp": {
-        "t": 1639307280,
-        "i": 30
+      "$date": {
+        "$numberLong": "1639326116140"
       }
     }
   }

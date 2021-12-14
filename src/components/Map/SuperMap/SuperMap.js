@@ -8,6 +8,7 @@ import Navbar from "../../NavBar/Navbar";
 const selectAllPosts = (state) => state.posts;
 const SuperMap = () => {
 
+    const currentUser = "Nishtha";
     const posts = useSelector(selectAllPosts);
     const dispatch = useDispatch();
     useEffect(() => fetchAllPosts(dispatch), [])
