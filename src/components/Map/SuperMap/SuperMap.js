@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from "react";
-import ReactMapGL, {Marker, Popup} from "react-map-gl";
+import React, {useEffect} from "react";
 import {fetchAllPosts} from "../../../services/postService";
 import {useDispatch, useSelector} from "react-redux";
 import Map from "../index.js";

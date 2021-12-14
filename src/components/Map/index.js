@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import ReactMapGL, {Marker, Popup} from "react-map-gl";
 import {useDispatch, useSelector} from "react-redux";
-import {postNewPost} from "../../services/postService";
+import {deletePost, postNewPost} from "../../services/postService";
 import {getCurrentProfile} from "../../services/userService";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 const Map = ({posts}) => {
 
@@ -49,13 +51,18 @@ const Map = ({posts}) => {
             longitude: newLocation.long,
             visit_date: date,
 
-        })
+        }).then(() => toast.success("Post saved.", {theme: "colored"}))
         setNewLocation(null)
     }
+
+    const deletePostClickHandler = (post) => {
+        deletePost(dispatch, post);
+    };
 
     return (
 
         <>
+            <ToastContainer />
             <ReactMapGL
                 className="wd-map"
                 {...viewport}
@@ -105,6 +112,11 @@ const Map = ({posts}) => {
                                         <h6 className="wd-popup">{post.title}</h6>
                                         <p className="wd-popup wd-popup-description">{post.description}</p>
                                         <span className="wd-popup-date">1 hour ago</span>
+                                        {post.user_Id.toString() === user._id && <button
+                                            className="btn btn-danger rounded-pill m-1 wd-tweet"
+                                            onClick={() => deletePostClickHandler(post)}>
+                                            Delete Post
+                                        </button>}
                                     </div>
                                 </Popup>
                             )}
