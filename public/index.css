@@ -4,6 +4,11 @@
 }
 
 
+.Blue {
+    color: darkblue;
+}
+
+
 .loginBody {
     min-height: 100vh;
     display: flex;

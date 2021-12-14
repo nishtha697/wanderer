@@ -1,6 +1,6 @@
 import React from "react";
-import travel from "./Images/travel.jpg"
-import plane from "./Images/plane.jpg"
+import travel from "../Images/travel.jpg"
+import plane from "../Images/plane.jpg"
 
 const Caurosel = () => {
 

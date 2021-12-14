@@ -9,6 +9,8 @@ import posts from "./reducers/posts";
 import user from "./reducers/user";
 import SuperMap from "./components/Maps/SuperMap/SuperMap";
 import MyMap from "./components/Maps/MyMap/MyMap";
+import Login from "./components/Login/Login";
+import Home from "./components/Home/Home";
 import "./index.css";
 
 const reducer = combineReducers({posts, user})
@@ -17,20 +19,15 @@ const store = createStore(reducer,
                           window.__REDUX_DEVTOOLS_EXTENSION__
                           && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-import Login from "./login/Login";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Home from "./Home";
-import Register from "./login/Register";
-import Profile from "./login/Profile";
-import Verifications from "./Providers/index"
+
 function App() {
     return (
         <Provider store={store}>
             <BrowserRouter>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}/>
-                <Route path="/verifications" element={<Verifications/>}/>
+                {/*<Route path="/register" element={<Register/>}/>*/}
+                {/*<Route path="/verifications" element={<Verifications/>}/>*/}
                 <Route path={["/profile"]} exact={true}>
                     <Profile/>
                 </Route>

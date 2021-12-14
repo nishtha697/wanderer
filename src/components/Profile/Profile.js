@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import {API_URL} from "../consts";
+import {API_URL} from "../Login/consts";
 import {useNavigate} from "react-router-dom";
-import Navigation from "../Nagivation";
+// import Navigation from "../Nagivation";
 
 const Profile = () => {
   const [user, setUser] = useState({});
@@ -35,7 +35,7 @@ const Profile = () => {
           className="btn btn-danger">
           Logout
         </button>
-      <Navigation/>
+      {/*<Navigation/>*/}
     </div>
 
 

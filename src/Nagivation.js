@@ -8,10 +8,14 @@ const Navigation = () => {
       </Link>
       <Link to="/register" className="list-group-item">
         Register
+
       </Link>
       <Link to="/login" className="list-group-item">
         Login
       </Link>
+        <Link to="/privacy" className="list-group-item">
+            Login
+        </Link>
       <Link to="/profile" className="list-group-item">
         Profile
       </Link>

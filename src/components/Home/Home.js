@@ -1,24 +1,23 @@
-import Navigation from "./Nagivation";
-import Caurosel from "./components/Caurosel";
-import travel from "./components/travel.jpeg";
+// import Navigation from "..";
+import Caurosel from "../Caurosel/Caurosel";
+import travel from "../Images/travel.jpeg";
 import React from "react";
 // import Login from "./components/Login";
 // import Navbar from "./Navbar"
 // import T from "./T";
 // import Pins from "./Pins";
-import ipad from "./components/Images/ipad.png"
-import map2 from "./components/Images/map2.jpg"
-import pins from "./components/Images/pins.jpg"
-import Navbar from "./components/Navbar"
-import VerificationList from "./Providers/index"
+import ipad from "../Images/ipad.png"
+import map2 from "../Images/map2.jpg"
+import pins from "../Images/pins.jpg"
+import Privacy from "../Privacy/Privacy";
 
 
 const Home = () => {
   return(
 
     <div>
+        <Privacy/>
         <div className="">
-            <Navbar/>
 
             <div className = "row mt-5">
                 <div className = "col-2">
@@ -126,8 +125,6 @@ const Home = () => {
             </div>
         </div>
 
-        <h1>Home</h1>
-      <Navigation/>
     </div>
   );
 };
