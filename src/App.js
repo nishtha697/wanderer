@@ -9,6 +9,9 @@ import Profile from "./components/ProfileScreen/Profile.js";
 import posts from "./reducers/posts";
 import SuperMap from "./components/Map/SuperMap/SuperMap";
 import MyMap from "./components/Map/MyMap/MyMap";
+import Navbar from "./components/NavBar/Navbar";
+import SearchComponent from "./components/SearchComponent";
+import User from "./components/User";
 
 const reducer = combineReducers({ posts });
 
@@ -21,9 +24,17 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Route path={["/", "/profile"]} exact={true}>
+        {/* <Route path={["/", "/profile"]} exact={true}>
           <Profile />
+        </Route> */}
+        <Route path="/" exact={true}>
+          <Navbar />
         </Route>
+
+        <Route name="search" path={["/search/:result"]}>
+          <SearchComponent />
+        </Route>
+
         <Route path={["/super"]} exact={true}>
           <SuperMap />
         </Route>
@@ -32,6 +43,7 @@ function App() {
         </Route>
       </BrowserRouter>
     </Provider>
+    // <User />
   );
 }
 

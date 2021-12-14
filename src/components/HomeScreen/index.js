@@ -20,7 +20,7 @@ const HomeScreen = () => {
   };
 
   const _suggestionSelect = (result, lat, lng, text) => {
-    // setSearch(result);
+    setSearch(result);
     const lt = Number(lat);
     const lang = Number(lng);
     setLat(lt);
@@ -39,9 +39,9 @@ const HomeScreen = () => {
     setIsSearched(true);
   };
 
-  if (isSearched) {
-    return <SearchComponent lat={lat} lng={lng} />;
-  }
+  // if (isSearched) {
+  //   return <SearchComponent lat={lat} lng={lng} />;
+  // }
 
   return (
     <div>
