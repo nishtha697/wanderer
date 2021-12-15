@@ -14,6 +14,7 @@ import Navbar from "./components/NavBar/Navbar";
 import SearchComponent from "./components/SearchComponent";
 import User from "./components/User";
 import AdminPanel from "./components/AdminPanel";
+import Login from "./components/Login";
 
 const reducer = combineReducers({ posts, user });
 
@@ -40,6 +41,10 @@ function App() {
 
         <Route path="/user" exact={true}>
           <User />
+        </Route>
+
+        <Route path="/login" exact={true}>
+          <Login />
         </Route>
 
         <Route name="search" path={["/search/:result"]}>
