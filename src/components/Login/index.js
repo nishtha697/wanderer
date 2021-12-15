@@ -4,7 +4,7 @@ import Navbar from "../NavBar/Navbar";
 
 const Login = () => {
   let history = useHistory();
-  const [newUser, setNewUser] = useState({});
+  const [newUser, setNewUser] = useState({ email: "", password: "" });
 
   const handlePasswordChange = (e) => {
     setNewUser({ ...newUser, password: e.target.value });
@@ -14,8 +14,7 @@ const Login = () => {
     setNewUser({ ...newUser, email: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     fetch("http://localhost:4000/api/login", {
       method: "POST",
       body: JSON.stringify(newUser),

@@ -15,6 +15,8 @@ import SearchComponent from "./components/SearchComponent";
 import User from "./components/User";
 import AdminPanel from "./components/AdminPanel";
 import Login from "./components/Login";
+import Privacy from "./components/Privacy";
+import HomeScreen from "./components/HomeScreen";
 
 const reducer = combineReducers({ posts, user });
 
@@ -32,7 +34,7 @@ function App() {
         </Route>
 
         <Route path="/" exact={true}>
-          <Navbar />
+          <HomeScreen />
         </Route>
 
         <Route path="/admin" exact={true}>
@@ -41,6 +43,10 @@ function App() {
 
         <Route path="/user" exact={true}>
           <User />
+        </Route>
+
+        <Route path="/privacy" exact={true}>
+          <Privacy />
         </Route>
 
         <Route path="/login" exact={true}>

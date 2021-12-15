@@ -361,7 +361,7 @@ const User = () => {
                             for="form2Example3"
                           >
                             I agree all statements in{" "}
-                            <a href="#!">Terms of service</a>
+                            <Link to="/privacy">Terms of service</Link>
                           </label>
                         </div>
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
