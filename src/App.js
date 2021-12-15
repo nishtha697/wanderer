@@ -1,7 +1,6 @@
 import './App.css';
 import './vendors/bootstrap-5.1.3-dist/css/bootstrap.min.css';
 import './vendors/fontawesome/css/all.min.css';
-// import "./vendors/bootstrap/bootstrap.min.css";
 import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import {BrowserRouter, Route} from "react-router-dom";
@@ -10,7 +9,10 @@ import posts from "./reducers/posts";
 import user from "./reducers/user";
 import SuperMap from "./components/Maps/SuperMap/SuperMap";
 import MyMap from "./components/Maps/MyMap/MyMap";
-import ServiceList from "./components/ServiceProvider/ServiceList";
+import Login from "./components/Login/Login";
+import Register from "./components/Login/Register";
+import Home from "./components/Home/Home";
+import "./index.css";
 
 const reducer = combineReducers({posts, user})
 
@@ -18,21 +20,26 @@ const store = createStore(reducer,
                           window.__REDUX_DEVTOOLS_EXTENSION__
                           && window.__REDUX_DEVTOOLS_EXTENSION__());
 
+
 function App() {
     return (
         <Provider store={store}>
             <BrowserRouter>
-                <Route path={["/", "/profile"]} exact={true}>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/register" element={<Register/>}/>
+                {/*<Route path="/verifications" element={<Verifications/>}/>*/}
+                <Route path={["/profile"]} exact={true}>
                     <Profile/>
                 </Route>
                 <Route path={["/profile/:id"]}>
                     <Profile/>
                 </Route>
                 <Route path={["/super"]} exact={true}>
-                    <SuperMap />
+                    <SuperMap/>
                 </Route>
                 <Route path={["/mymap"]} exact={true}>
-                    <MyMap />
+                    <MyMap/>
                 </Route>
             </BrowserRouter>
         </Provider>

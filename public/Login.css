@@ -1,0 +1,24 @@
+
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-attachment: fixed;
+    bacground-size: cover;
+    font-family: new time roman;
+}
+h1{
+    font-size: 90px;
+    color: green;
+    margin-top: 30px;
+    margin-bottom: 60px;
+
+}
+
+.col-md-5{
+    background: rgba(0,0,0,0);
+    margin-top: 40px;
+
+}
