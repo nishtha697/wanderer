@@ -9,12 +9,15 @@ const posts = (state = enteries, action) => {
         case 'like-post':
             return state.map(post => {
                 if (post._id === action.post._id) {
+                    if (post.likes === undefined) {
+                        post.likes = 0;
+                    }
                     if (post.liked === true) {
                         post.liked = false;
-                        post.stats.likes--;
+                        post.likes--;
                     } else {
                         post.liked = true;
-                        post.stats.likes++;
+                        post.likes++;
                     }
                     return post;
                 } else {

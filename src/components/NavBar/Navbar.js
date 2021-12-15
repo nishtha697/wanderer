@@ -10,20 +10,20 @@ const Navbar = ({inMapMode}) => {
                 <img src={`${process.env.PUBLIC_URL}/images/wanderer.png`} alt=""
                      height="50"/>
             </Link>
-                <div className=" navbar">
-                    <div className="wd-search">
+            <div className=" navbar">
+                <div className="wd-search">
                     <span><i className="fas fa-map-marker-alt"/>
                     <input className="wd-search-twitter form-control" type="search"
                            placeholder="Search Location"/></span>
-                    </div>
-                    {inMapMode === true &&
-                     <div className="nav nav-item ps-2 pe-2">
-                         <Link className={`btn btn-secondary wd-round-btn`}
-                               to={`/profile`} exact={true}>
-                             Profile
-                         </Link>
-                     </div>}
                 </div>
+                {inMapMode === true &&
+                 <div className="nav nav-item ps-2 pe-2">
+                     <Link className={`btn btn-secondary wd-round-btn`}
+                           to={`/profile`} exact={true}>
+                         Profile
+                     </Link>
+                 </div>}
+            </div>
             <ul className="nav navbar d-inline-flex justify-content-center">
                 <li className="nav nav-item ps-2 pe-2">
                     <Link className="logout btn btn-danger wd-logout-btn wd-round-btn" to="#">Log out</Link>

@@ -7,10 +7,12 @@ import {Provider} from "react-redux";
 import {BrowserRouter, Route} from "react-router-dom";
 import Profile from "./components/ProfileScreen/Profile.js";
 import posts from "./reducers/posts";
-import SuperMap from "./components/Map/SuperMap/SuperMap";
-import MyMap from "./components/Map/MyMap/MyMap";
+import user from "./reducers/user";
+import SuperMap from "./components/Maps/SuperMap/SuperMap";
+import MyMap from "./components/Maps/MyMap/MyMap";
+import ServiceList from "./components/ServiceProvider/ServiceList";
 
-const reducer = combineReducers({posts})
+const reducer = combineReducers({posts, user})
 
 const store = createStore(reducer,
                           window.__REDUX_DEVTOOLS_EXTENSION__
@@ -21,6 +23,9 @@ function App() {
         <Provider store={store}>
             <BrowserRouter>
                 <Route path={["/", "/profile"]} exact={true}>
+                    <Profile/>
+                </Route>
+                <Route path={["/profile/:id"]}>
                     <Profile/>
                 </Route>
                 <Route path={["/super"]} exact={true}>

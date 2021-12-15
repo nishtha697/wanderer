@@ -12,7 +12,7 @@
     height: auto;
     transition: .5s ease;
     backface-visibility: hidden;
-    //border: solid #444343;
+//border: solid #444343;
 }
 
 .edit-banner {
@@ -26,7 +26,7 @@
     text-align: center;
 }
 
-.profile-header:hover .image {
+.profile-header:hover .editImage {
     opacity: 0.3;
 }
 
@@ -43,13 +43,13 @@
     transition: .5s ease;
     backface-visibility: hidden;
     display: inline-block;
-    //margin-bottom: -20%;
+//margin-bottom: -20%;
 }
 
 .profile {
     /*top: -15%;*/
     /*margin-bottom: -15%;*/
-    background-color: #c3d3f3;
+    background-color: #5fa9f1;
     padding: 10px;
 }
 
@@ -73,9 +73,8 @@
     text-align: center;
 }
 
-.profile-image:hover .imageProfile{
+.profile-image:hover .editImageProfile{
     opacity: 0.7;
-
 }
 
 .imageProfile {
@@ -94,7 +93,7 @@
 }
 
 .menu {
-    //border-bottom: solid thin #504f4f;
+//border-bottom: solid thin #504f4f;
     width: 100%;
     background:rgba(256,256,256,0.8);
 }
@@ -125,9 +124,13 @@ a {
     border: none;
 }
 
+.nav-tabs .nav-link{
+    border: none;
+}
+
 .nav-tabs .nav-link:hover {
     font-weight: bold;
-    border: none;
+    border-bottom: black solid;
     color: black;
 }
 
@@ -223,8 +226,110 @@ a {
     border-radius: 20px;
 }
 
+.fa-check-circle {
+    color: whitesmoke;
+    font-size: 20px;
+}
+
 .wd-add-input {
     border: solid thin lightgrey;
     border-radius: 5px;
     font-size: 15px;
+    display: block;
+}
+
+.wd-timestamp{
+    font-size: smaller;
+    font-weight: normal;
+}
+
+.wd-profile-tab {
+    cursor: pointer;
+}
+
+.wd-input-label {
+    font-weight: bold;
+    font-size: smaller;
+}
+
+.name {
+    color: white;
+}
+
+.wd-form-popup {
+    display: none;
+    position: fixed;
+    width: 500px;
+    /*height: 250px;*/
+    top: 30%;
+    left: 30%;
+    margin-top: -150px; /* Negative half of height. */
+    margin-left: -250px;
+    /*border: 3px solid #f1f1f1;*/
+    border-top: none;
+    z-index: 9;
+    background-color: white;
+}
+
+#wd-edit-profile-form {
+    display: none;
+}
+
+.wd-profile-save {
+    font-weight: bold;
+    background-color: white;
+    color: black;
+    border: none;
+}
+
+.wd-edit-header {
+    background-color: dodgerblue;
+    /*border-bottom: 3px solid #f1f1f1;*/
+
+}
+
+.wd-profile-name {
+    color: white;
+    font-weight: bold;
+}
+
+.fa-times {
+    color: white;
+}
+
+.fa-times:hover {
+    cursor: pointer;
+}
+
+.wd-popup-title {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.wd-user {
+    font-weight: bold;
+    color: dodgerblue;
+}
+
+
+
+.wd-add-provider-service {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 20px;
+
+}
+
+.wd-provider-btn {
+    display: block;
+}
+.wd-profile-link {
+    color: dodgerblue;
+    font-weight: bold;
+}
+
+.fa-trash-alt {
+    color: darkred;
 }
