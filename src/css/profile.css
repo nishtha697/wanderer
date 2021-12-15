@@ -26,7 +26,7 @@
   text-align: center;
 }
 
-.profile-header:hover .image {
+.profile-header:hover .editImage {
   opacity: 0.3;
 }
 
@@ -49,7 +49,7 @@
 .profile {
   /*top: -15%;*/
   /*margin-bottom: -15%;*/
-  background-color: #c3d3f3;
+  background-color: #5fa9f1;
   padding: 10px;
 }
 
@@ -73,7 +73,7 @@
   text-align: center;
 }
 
-.profile-image:hover .imageProfile {
+.profile-image:hover .editImageProfile {
   opacity: 0.7;
 }
 
@@ -124,9 +124,13 @@ a {
   border: none;
 }
 
+.nav-tabs .nav-link {
+  border: none;
+}
+
 .nav-tabs .nav-link:hover {
   font-weight: bold;
-  border: none;
+  border-bottom: black solid;
   color: black;
 }
 
@@ -151,7 +155,7 @@ a {
 }
 
 .wd-logout-btn {
-  margin-top: -5px;
+  margin-top: 5px;
   width: 100%;
   font-size: small;
   font-weight: bold;
@@ -223,4 +227,72 @@ a {
   border: solid thin lightgrey;
   border-radius: 5px;
   font-size: 15px;
+}
+
+.wd-timestamp {
+  font-size: smaller;
+  font-weight: normal;
+}
+
+.wd-profile-tab {
+  cursor: pointer;
+}
+
+.wd-input-label {
+  font-weight: bold;
+  font-size: smaller;
+}
+
+.wd-form-popup {
+  display: none;
+  position: fixed;
+  width: 500px;
+  /*height: 250px;*/
+  top: 30%;
+  left: 30%;
+  margin-top: -150px; /* Negative half of height. */
+  margin-left: -250px;
+  /*border: 3px solid #f1f1f1;*/
+  border-top: none;
+  z-index: 9;
+  background-color: white;
+}
+
+#wd-edit-profile-form {
+  display: none;
+}
+
+.wd-profile-save {
+  font-weight: bold;
+  background-color: white;
+  color: black;
+  border: none;
+}
+
+.wd-edit-header {
+  background-color: dodgerblue;
+  /*border-bottom: 3px solid #f1f1f1;*/
+}
+
+.wd-profile-name {
+  color: white;
+  font-weight: bold;
+}
+
+.fa-times {
+  color: white;
+}
+
+.fa-times:hover {
+  cursor: pointer;
+}
+
+.wd-popup-title {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.wd-user {
+  font-weight: bold;
+  color: dodgerblue;
 }

@@ -1,0 +1,12 @@
+.wd-search {
+  display: inline-flex;
+}
+
+.wd-search-btn {
+  position: absolute;
+  top: 8px;
+  right: 0px;
+}
+
+.wd-add-post-search {
+}

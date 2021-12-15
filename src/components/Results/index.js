@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
 
-const SEARCH_API = "http://localhost:4000/api/posts";
+const SEARCH_API = "http://localhost:4000/api/search";
 
 const test = [{ title: "Hello World" }, { title: "Hello Again" }];
 
