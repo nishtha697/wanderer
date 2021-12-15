@@ -4,6 +4,19 @@
 
 .wd-search-btn {
   position: absolute;
-  top: 8px;
+  top:11px;
   right: 0px;
+}
+
+.wd-profile-icon {
+  color: royalblue;
+  font-size: large;
+}
+
+.wd-profile-icon:hover {
+  color: dodgerblue;
+}
+
+.react-mapbox-ac-input {
+  margin-bottom: 0 !important;
 }

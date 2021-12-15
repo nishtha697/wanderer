@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link, Redirect, useNavigate } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 
 const Login = () => {
-  let history = useNavigate();
+  let history = useHistory();
   const [newUser, setNewUser] = useState({ email: "", password: "" });
 
   const handlePasswordChange = (e) => {
@@ -23,7 +23,7 @@ const Login = () => {
         "content-type": "application/json",
       },
     })
-      .then((status) => history("/"))
+      .then((status) => history.push("/"))
       .catch((err) => console.log(err));
   };
   return (

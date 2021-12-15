@@ -33,7 +33,7 @@ const Profile = () => {
   const [provider, setProvider] = useState({})
   const dispatch = useDispatch();
 
-  useEffect(() => getCurrentProfile(dispatch, "nishthagoswami697@gmail.com"), []);
+  useEffect(() => { getCurrentProfile(dispatch, "nishthagoswami697@gmail.com")}, []);
 
   useEffect(() => {
     fetch(`http://localhost:4000/api/providers/${user._id}`)
@@ -55,6 +55,9 @@ const Profile = () => {
       return <ServiceList userId={user._id}/>
     }
   }
+
+  console.log(user.profile_pic);
+  console.log(user.cover_pic);
 
   const getProfileDetails = () => {
     return (
@@ -89,7 +92,7 @@ const Profile = () => {
               <div className="profile-header">
                 <img className={`rounded image ${!isFriendProfile && "editImage"}`}
                      alt="banner"
-                     src={`${process.env.PUBLIC_URL}/images/profile_banner.png`}
+                     src={`http://localhost:4000/${user.cover_pic}`}
                      width="100%"/>
                 {!friendUserId && <div className="edit-banner">
                   <button type="button" className="edit btn btn-primary">
@@ -102,7 +105,7 @@ const Profile = () => {
                   <img className={`rounded-circle imageProfile ${!isFriendProfile
                                                                  && "editImageProfile"}`}
                        alt="banner"
-                       src={`${process.env.PUBLIC_URL}/images/profile-image.png`}
+                       src={`http://localhost:4000/${user.profile_pic}`}
                        width="100px" height="100px"
                        style={{verticalAlign: "baseline"}}/>
                   {!friendUserId && <div className="edit-profile">
@@ -124,7 +127,7 @@ const Profile = () => {
                       Feed
                     </div>
                   </li>
-                  {!isFriendProfile && provider !== null && provider.verified === true && <li className="nav-item">
+                  {!isFriendProfile && (user.role === "user" || provider.verified === true) && <li className="nav-item">
                     <div className={`nav-link wd-profile-tab ${active === "add_post"
                                                                ? "active" : ""}`}
                          onClick={() => setActive("add_post")}>New Post
