@@ -10,6 +10,7 @@ import user from "./reducers/user";
 import SuperMap from "./components/Maps/SuperMap/SuperMap";
 import MyMap from "./components/Maps/MyMap/MyMap";
 import Login from "./components/Login/Login";
+import Register from "./components/Login/Register";
 import Home from "./components/Home/Home";
 import "./index.css";
 
@@ -26,7 +27,7 @@ function App() {
             <BrowserRouter>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
-                {/*<Route path="/register" element={<Register/>}/>*/}
+                <Route path="/register" element={<Register/>}/>
                 {/*<Route path="/verifications" element={<Verifications/>}/>*/}
                 <Route path={["/profile"]} exact={true}>
                     <Profile/>
@@ -35,10 +36,10 @@ function App() {
                     <Profile/>
                 </Route>
                 <Route path={["/super"]} exact={true}>
-                    <SuperMap />
+                    <SuperMap/>
                 </Route>
                 <Route path={["/mymap"]} exact={true}>
-                    <MyMap />
+                    <MyMap/>
                 </Route>
             </BrowserRouter>
         </Provider>

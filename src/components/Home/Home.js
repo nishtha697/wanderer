@@ -1,4 +1,4 @@
-// import Navigation from "..";
+import Navigation from "../../Nagivation";
 import Caurosel from "../Caurosel/Caurosel";
 import travel from "../Images/travel.jpeg";
 import React from "react";
@@ -10,12 +10,15 @@ import ipad from "../Images/ipad.png"
 import map2 from "../Images/map2.jpg"
 import pins from "../Images/pins.jpg"
 import Privacy from "../Privacy/Privacy";
-
+// import Encrypt from "../Encryption/Encrypt";
 
 const Home = () => {
   return(
 
     <div>
+        {/*<Encrypt/>*/}
+
+        <Navigation/>
         <Privacy/>
         <div className="">
 

@@ -24,12 +24,12 @@ const Privacy = () => {
 
     <h1> Summary</h1>
         <p>
-            NavMap is public and posts are immediately viewable and searchable by anyone around
+            Wanderer is public and posts are immediately viewable and searchable by anyone around
             the world. At the moment, no messages are private and all messages may be viewed publicly
             by persons who are or are not registered.
         </p>
         <p>
-            When you use NavMap, we receive only the personal information you chose to share with us,
+            When you use Wanderer, we receive only the personal information you chose to share with us,
             such as e-mail, address, and locations visited, which are displayed on a map.
         </p>
         <p>
