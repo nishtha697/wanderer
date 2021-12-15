@@ -53,18 +53,18 @@ const User = () => {
         setLoggedIn(false);
       });
 
-    if (newUser.role === "provider") {
-      console.log(provider);
-      fetch("http://localhost:4000/api/registration", {
-        method: "POST",
-        body: JSON.stringify(provider),
-        headers: {
-          "content-type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((user) => console.log(user));
-    }
+    // if (newUser.role === "provider") {
+    //   console.log(provider);
+    //   fetch("http://localhost:4000/api/registration", {
+    //     method: "POST",
+    //     body: JSON.stringify(provider),
+    //     headers: {
+    //       "content-type": "application/json",
+    //     },
+    //   })
+    //     .then((res) => res.json())
+    //     .then((user) => console.log(user));
+    // }
 
     setLoggedIn(true);
   };
