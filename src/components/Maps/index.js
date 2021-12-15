@@ -3,10 +3,10 @@ import ReactMapGL, {Marker, Popup} from "react-map-gl";
 import {useDispatch, useSelector} from "react-redux";
 import {deletePost, postNewPost} from "../../services/postService";
 import {getCurrentProfile} from "../../services/userService";
-import { ToastContainer, toast } from "react-toastify";
+import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 
-const Map = ({posts}) => {
+const Maps = ({posts}) => {
 
     const dispatch = useDispatch();
     const userData = (state) => state.user;
@@ -33,7 +33,6 @@ const Map = ({posts}) => {
     };
 
     const addNewLocation = (error) => {
-        debugger;
         const [longitude, latitude] = error.lngLat;
         setNewLocation({
                            lat: latitude,
@@ -41,7 +40,6 @@ const Map = ({posts}) => {
                        });
     }
 
-    debugger;
     const submitClickHandler = () => {
         postNewPost(dispatch, {
             title,
@@ -59,10 +57,21 @@ const Map = ({posts}) => {
         deletePost(dispatch, post);
     };
 
+    const providerPosts = posts.filter((item) => item.location !== undefined);
+    const [serviceTitles, setServiceTitles] = useState([])
+    const uniqueLocations = [...new Set(providerPosts.map(item => item.location))];
+
+    const serviceTitlesMapByLocation = new Map();
+    uniqueLocations.map(location => {
+        serviceTitlesMapByLocation.set(location,
+                                       providerPosts.filter((item) => item.location === location)
+                                           .map(post => post.title))
+    })
+
     return (
 
         <>
-            <ToastContainer />
+            <ToastContainer/>
             <ReactMapGL
                 className="wd-map"
                 {...viewport}
@@ -90,7 +99,8 @@ const Map = ({posts}) => {
                             >
                                 <i className="fas fa-map-marker-alt" style={{
                                     fontSize: 4 * viewport.zoom,
-                                    color: post.user_Id.toString() === user._id ? "dodgerblue" : "orangered",
+                                    color: post.user_Id.toString() === user._id ? "dodgerblue"
+                                                                                : "orangered",
                                     cursor: "pointer"
                                 }}
                                    onClick={() => popupMarker(post._id,
@@ -98,7 +108,7 @@ const Map = ({posts}) => {
                                                               longitude)}
                                 />
                             </Marker>
-                            {post._id === currentPlaceId && (
+                            {post._id === currentPlaceId && post.visit_date !== undefined && (
                                 <Popup
                                     key={post._id}
                                     latitude={latitude}
@@ -108,7 +118,8 @@ const Map = ({posts}) => {
                                     onClose={() => setCurrentPlaceId(null)}
                                     anchor="left"
                                 >
-                                    <div className="card" style={{border: "none", width: "auto", maxWidth: "500px"}}>
+                                    <div className="card"
+                                         style={{border: "none", width: "auto", maxWidth: "500px"}}>
                                         <h6 className="wd-popup">{post.title}</h6>
                                         <p className="wd-popup wd-popup-description">{post.description}</p>
                                         <span className="wd-popup-date">1 hour ago</span>
@@ -120,11 +131,31 @@ const Map = ({posts}) => {
                                     </div>
                                 </Popup>
                             )}
+                            {post._id === currentPlaceId && post.location !== undefined && (
+                                <Popup
+                                    key={post._id}
+                                    latitude={latitude}
+                                    longitude={longitude}
+                                    closeButton={true}
+                                    closeOnClick={false}
+                                    onClose={() => setCurrentPlaceId(null)}
+                                    anchor="left"
+                                >
+                                    <div className="card"
+                                         style={{border: "none", width: "auto", maxWidth: "500px"}}>
+                                        <h6 className="wd-popup me-2">Services available: </h6>
+                                        {serviceTitlesMapByLocation.get(post.location).map(
+                                            title => <p className="wd-popup wd-popup-description wd-profile-link"
+                                                           >{title}</p>)}
+
+                                    </div>
+                                </Popup>
+                            )}
 
                         </>
                     )
                 })}
-                {newLocation && (
+                {newLocation && user.role === "user" && (
                     <>
                         <Marker
                             latitude={newLocation.lat}
@@ -185,4 +216,4 @@ const Map = ({posts}) => {
     )
 }
 
-export default Map;
+export default Maps;

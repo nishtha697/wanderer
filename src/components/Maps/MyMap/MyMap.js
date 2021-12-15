@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {fetchAllPosts} from "../../../services/postService";
 import {useDispatch, useSelector} from "react-redux";
-import Map from "../index.js";
+import Maps from "../index.js";
 import Navbar from "../../NavBar/Navbar";
 import {getCurrentProfile} from "../../../services/userService";
 import {useLocation} from "react-router-dom";
@@ -30,7 +30,7 @@ const MyMap = () => {
     return (
         <>
             <Navbar inMapMode={true}/>
-            <Map posts={postList}/>
+            <Maps posts={postList} userId={user._id}/>
         </>
     )
 }

@@ -5,7 +5,7 @@ import MapboxAutocomplete from "react-mapbox-autocomplete";
 import ReactMapGL, {Marker, Popup} from "react-map-gl";
 import {postNewPost} from "../../services/postService";
 import {useDispatch} from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 
 MapboxAutocomplete.propTypes = {
@@ -16,13 +16,11 @@ MapboxAutocomplete.propTypes = {
     publicKey: PropTypes.string
 };
 
-const NewPost = ({userId}) => {
-    debugger;
 
+const NewPost = ({userId, userRole}) => {
     let [lat, setLat] = useState(null);
     let [lng, setLng] = useState(null);
     let [result, setResult] = useState("");
-    let [isSearched, setIsSearched] = useState(false);
     const [viewport, setViewport] = useState({
                                                  width: "100%",
                                                  height: 400,
@@ -37,7 +35,6 @@ const NewPost = ({userId}) => {
         setLat(lt);
         setLng(lang);
 
-        setIsSearched(true);
         setViewport({...viewport, latitude: lt, longitude: lang})
     };
 
@@ -46,17 +43,23 @@ const NewPost = ({userId}) => {
     const [description, setDescription] = useState("");
     const [date, setDate] = useState(null);
 
+
     const submitClickHandler = () => {
         postNewPost(dispatch, {
             title,
             description,
             user_Id: userId,
             latitude: lat,
+            visitDate: date,
             longitude: lng,
-            visit_date: date,
+            location: result
         }).then(() => toast.success("Post saved.", {theme: "colored"}))
 
-        setResult("")
+        setTitle("")
+        setDescription("")
+        if (userRole !== "provider") {
+            setResult("")
+        }
 
     }
 
@@ -67,12 +70,12 @@ const NewPost = ({userId}) => {
     return (
         <>
             <div
-                className="nav nav-pills shadow ps-5 pe-5 pb-2 pt-2 mb-2 wd-add-post-search">
+                id="wd-parent" className="nav nav-pills shadow ps-5 pe-5 pb-2 pt-2 mb-2 wd-add-post-search">
                 <div className=" navbar">
                     <div className="wd-search">
           <span>
             <i className="fas fa-map-marker-alt"/>
-              <ToastContainer />
+              <ToastContainer/>
             <MapboxAutocomplete
                 publicKey={process.env.REACT_APP_MAPBOX}
                 inputClass="wd-search-twitter form-control "
@@ -81,17 +84,6 @@ const NewPost = ({userId}) => {
                 resetSearch={false}
                 placeholder="Search Location"
             />
-              {/*<input className="wd-search-twitter form-control" type="search"*/}
-              {/*              placeholder="Search Location" />*/}
-              {/*<Link*/}
-              {/*    to={{*/}
-              {/*        pathname: `/search/${result}`,*/}
-              {/*        state: {*/}
-              {/*            latitude: lat,*/}
-              {/*            longitude: lng,*/}
-              {/*        },*/}
-              {/*    }}*/}
-              {/*>*/}
               <button
                   className={`btn btn-primary wd-search-btn wd-round-btn `}
                   onClick={handleSearchClick}
@@ -100,7 +92,6 @@ const NewPost = ({userId}) => {
                 {" "}
                   Add Pin
               </button>
-              {/*</Link>*/}
           </span>
                     </div>
                 </div>
@@ -123,12 +114,9 @@ const NewPost = ({userId}) => {
                             color: "dodgerblue",
                             cursor: "pointer"
                         }}
-                            // onClick={() => popupMarker(post._id,
-                            //                            latitude,
-                            //                            longitude)}
                         />
                     </Marker>
-                        <Popup
+                        {userRole !== "provider" && <Popup
                             latitude={lat}
                             longitude={lng}
                             closeButton={true}
@@ -165,14 +153,35 @@ const NewPost = ({userId}) => {
                                     Add Post
                                 </button>
                             </div>
-                        </Popup>
+                        </Popup>}
                     </>}
                 </ReactMapGL>
-            </div>
-
+                {result && userRole === "provider" && <><div id="wd-add-provider-post" className="wd-add-provider-service">
+                    <label
+                        className="ms-1 mt-3 wd-input-label">Activity:</label>
+                    <input className="p-1 m-1 wd-add-input"
+                           placeholder="Service title"
+                           value={title}
+                           autoFocus
+                           onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <textarea className="p-1 m-1 wd-add-input"
+                              value={description}
+                              onChange={(event) =>
+                                  setDescription(event.target.value)}
+                              width="100%"
+                              rows="4"
+                              placeholder="Tell us more about this service (is it a tour, an activity, etc) ">
+                    </textarea>
+                    </div>
+                <button
+                    className="btn btn-primary rounded-pill m-1 wd-provider-btn"
+                    onClick={submitClickHandler}>
+                    Add Post
+                </button></>}
+                </div>
         </>
     )
-
 }
 
 export default NewPost;

@@ -8,8 +8,9 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Profile from "./components/ProfileScreen/Profile.js";
 import posts from "./reducers/posts";
 import user from "./reducers/user";
-import SuperMap from "./components/Map/SuperMap/SuperMap";
-import MyMap from "./components/Map/MyMap/MyMap";
+import SuperMap from "./components/Maps/SuperMap/SuperMap";
+import MyMap from "./components/Maps/MyMap/MyMap";
+import ServiceList from "./components/ServiceProvider/ServiceList";
 
 const reducer = combineReducers({posts, user})
 
