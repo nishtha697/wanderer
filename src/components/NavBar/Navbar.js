@@ -69,6 +69,7 @@ const Navbar = ({ inMapMode }) => {
                 state: {
                   latitude: lat,
                   longitude: lng,
+                  search: result,
                 },
               }}
             >

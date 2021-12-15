@@ -5,13 +5,12 @@ import Navbar from "../NavBar/Navbar";
 import Results from "../Results";
 
 const SearchComponent = () => {
-  //   console.log(props);
-  //   const { latitude, longitude } = useParams();
+
   const location = useLocation();
   const { latitude, longitude } = location.state;
-  //   const latitude = this.props.match.params.lat;
-  //   const longitude = this.props.match.params.lng;
+  const pathname = location.pathname;
 
+    const search = pathname.slice(8, pathname.length - 1)
   return (
     <>
       <Navbar />
@@ -19,7 +18,7 @@ const SearchComponent = () => {
         <SearchMap lat={latitude} lng={longitude} />
         <div>
           <ul>
-            <Results lat={latitude} lng={longitude} />
+            <Results lat={latitude} lng={longitude} search={search}/>
           </ul>
         </div>
       </div>
