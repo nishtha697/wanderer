@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
 import SearchComponent from "../SearchComponent";
 
@@ -8,7 +8,7 @@ import "./navbar.css";
 
 const Navbar = ({ inMapMode }) => {
 
-  let history = useHistory();
+  let navigate = useNavigate();
   const [user, setUser] = useState({});
 
   let [lat, setLat] = useState(null);
@@ -32,8 +32,8 @@ const Navbar = ({ inMapMode }) => {
     })
       .then((res) => res.json())
       .then((user) => console.log(user))
-      .catch((e) => history.push("/login"));
-  }, [history]);
+      .catch((e) => navigate("/login"));
+  }, [navigate]);
 
   //   if (isSearched) {
   //     return <SearchComponent lat={lat} lng={lng} />;

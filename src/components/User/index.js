@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./user.css";
 import Profile from "../ProfileScreen/Profile";
 import Navbar from "../NavBar/Navbar";
 
 const User = () => {
-  let history = useHistory();
+  let history = useNavigate();
   let [loggedIn, setLoggedIn] = useState(false);
   const [newUser, setNewUser] = useState({
                                            role: "user",
@@ -46,7 +46,7 @@ const User = () => {
         .then((res) => {
           // setProvider({ ...provider, user_Id: res.data._id });
           console.log(res);
-          history.push("/");
+          history("/");
         })
         .catch((err) => {
           console.log(err);
