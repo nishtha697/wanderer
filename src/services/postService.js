@@ -49,4 +49,3 @@ export const likePost = (dispatch, post) => {
                          post
                      })).then(response => response.json());
 }
-

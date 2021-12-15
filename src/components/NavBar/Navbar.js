@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
 import SearchComponent from "../SearchComponent";
 
 import "./navbar.css";
 
 const Navbar = ({ inMapMode }) => {
+
+  let history = useHistory();
+  const [user, setUser] = useState({});
+
   let [lat, setLat] = useState(null);
   let [lng, setLng] = useState(null);
   let [result, setResult] = useState("");
@@ -21,7 +25,19 @@ const Navbar = ({ inMapMode }) => {
     setIsSearched(true);
   };
 
+  useEffect(() => {
+    fetch("http://localhost:4000/api/profile", {
+      method: "POST",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((user) => console.log(user))
+      .catch((e) => history.push("/login"));
+  }, [history]);
 
+  //   if (isSearched) {
+  //     return <SearchComponent lat={lat} lng={lng} />;
+  //   }
   const handleSearchClick = () => {
     setResult("");
   };
@@ -67,7 +83,7 @@ const Navbar = ({ inMapMode }) => {
                 Search
               </button>
             </Link>
-   </span>
+          </span>
         </div>
         {inMapMode === true && (
           <div className="nav nav-item ps-2 pe-2">
@@ -82,14 +98,37 @@ const Navbar = ({ inMapMode }) => {
         )}
       </div>
       <ul className="nav navbar d-inline-flex justify-content-center">
-        <li className="nav nav-item ps-2 pe-2">
-          <Link
-            className="logout btn btn-danger wd-logout-btn wd-round-btn"
-            to="#"
-          >
-            Log out
-          </Link>
-        </li>
+        {!user && (
+          <li className="nav nav-item ps-2 pe-2">
+            <Link
+              className="logout btn btn-danger wd-logout-btn wd-round-btn"
+              to="/logout"
+            >
+              Logout
+            </Link>
+          </li>
+        )}
+
+        {user && (
+          <>
+            <li className="nav nav-item ps-2 pe-2">
+              <Link
+                className="logout btn btn-success wd-logout-btn wd-round-btn"
+                to="/login"
+              >
+                Login
+              </Link>
+            </li>
+            <li className="nav nav-item ps-2 pe-2">
+              <Link
+                className="logout btn btn-primary wd-logout-btn wd-round-btn"
+                to="/user"
+              >
+                Register
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
     </div>
   );

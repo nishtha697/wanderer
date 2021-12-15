@@ -25,3 +25,9 @@
 .react-mapbox-ac-suggestion:hover {
   background-color: #58a;
 }
+
+.connect {
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+}

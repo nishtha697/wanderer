@@ -21,10 +21,10 @@ export const updateCurrentProfile = (dispatch, user) =>
     })
         .then(response => response.json())
         .then(
-                  dispatch({
-                               type: 'save-profile',
-                               user: user
-                           })
+            dispatch({
+                         type: 'save-profile',
+                         user: user
+                     })
         );
 
 export const getProfileById = (dispatch, id) =>

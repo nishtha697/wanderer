@@ -173,13 +173,13 @@ const NewPost = ({userId, userRole}) => {
                               rows="4"
                               placeholder="Tell us more about this service (is it a tour, an activity, etc) ">
                     </textarea>
-                    </div>
-                <button
-                    className="btn btn-primary rounded-pill m-1 wd-provider-btn"
-                    onClick={submitClickHandler}>
-                    Add Post
-                </button></>}
                 </div>
+                    <button
+                        className="btn btn-primary rounded-pill m-1 wd-provider-btn"
+                        onClick={submitClickHandler}>
+                        Add Post
+                    </button></>}
+            </div>
         </>
     )
 }
