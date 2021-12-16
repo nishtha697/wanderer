@@ -56,8 +56,8 @@ const Profile = () => {
     }
   }
 
-  console.log(user.profile_pic);
-  console.log(user.cover_pic);
+  console.log(user.profile_photo);
+  console.log(user.cover_photo);
 
   const getProfileDetails = () => {
     return (

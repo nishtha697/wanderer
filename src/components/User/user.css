@@ -216,3 +216,14 @@ a.button:hover {
   -moz-box-shadow: none;
   box-shadow: none;
 } */
+
+.wd-privacy {
+    font-weight: bold;
+    color: dodgerblue;
+}
+
+.modal{ display:block; }
+
+.wd-privacy:hover {
+    color: royalblue ;
+}

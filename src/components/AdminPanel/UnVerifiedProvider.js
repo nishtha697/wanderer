@@ -10,6 +10,7 @@ const UnVerifiedProvider = ({provider}) => {
 
     let [user, setUser] = useState([]);
 
+    debugger;
     useEffect(() => {
         fetch(`${USER_API}/${provider.user_Id}`)
             .then((res) => res.json())
@@ -53,7 +54,7 @@ const UnVerifiedProvider = ({provider}) => {
                     <p>
                         Address: {provider.address} <br/>
                         Phone: {provider.contact}<br/>
-                        Card details: {provider.cardDetails}
+                        Card details: {provider.cardNumber}
                     </p>
                 </div>
                 <div className="col-4">
