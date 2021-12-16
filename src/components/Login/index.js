@@ -18,6 +18,7 @@ const Login = () => {
 
   // const [userData, setUserData] = useContext(UserContext);
   const [userData, setUserData] = useState({});
+  let [error, setError] = useState();
 
   const handleSubmit = async (e) => {
     try {
@@ -40,12 +41,13 @@ const Login = () => {
       });
       localStorage.setItem("auth-token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.resUser));
-      console.log(localStorage.getItem("user"));
+      // console.log(localStorage.getItem("user"));
       history.push("/");
 
       // console.log(loginRes.data.user);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      setError("Invalid credentials. Please try again!");
       // err.response.data.msg && setError(err.response.data.msg);
     }
 
@@ -93,9 +95,7 @@ const Login = () => {
                               onChange={handleEmailChange}
                               className="form-control"
                             />
-                            <label className="form-label" for="form3Example3c">
-                              Your Email
-                            </label>
+                            <label className="form-label">Your Email</label>
                           </div>
                         </div>
 
@@ -114,7 +114,7 @@ const Login = () => {
                             </label>
                           </div>
                         </div>
-
+                        {error && <p>{error}</p>}
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button
                             type="submit"

@@ -5,8 +5,11 @@ import Navbar from "../NavBar/Navbar";
 
 const HomeScreen = () => {
   //******** Code to get the current logged in user */
-
-  console.log(localStorage.getItem("user"));
+  const [user, setUser] = useState();
+  // console.log(localStorage.getItem("user"));
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, [user]);
 
   /************************************************ */
   const [viewport, setViewport] = useState({
@@ -20,7 +23,7 @@ const HomeScreen = () => {
   useEffect(() => {
     setViewport({
       width: "100%",
-      height: "50vh",
+      height: "45vh",
       latitude: 42.3601,
       longitude: -71.0589,
       zoom: 12,

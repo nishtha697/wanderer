@@ -7,9 +7,12 @@ import SearchComponent from "../SearchComponent";
 import "./navbar.css";
 
 const Navbar = ({ inMapMode }) => {
-
   let history = useHistory();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(() => localStorage.getItem("user"));
+
+  useEffect(() => {
+    setUser(() => localStorage.getItem("user"));
+  }, [user]);
 
   let [lat, setLat] = useState(null);
   let [lng, setLng] = useState(null);
@@ -23,6 +26,12 @@ const Navbar = ({ inMapMode }) => {
     setLng(lang);
 
     setIsSearched(true);
+  };
+
+  const logoutHandler = () => {
+    localStorage.clear();
+    setUser(null);
+    history.push("/");
   };
 
   // useEffect(() => {
@@ -85,32 +94,31 @@ const Navbar = ({ inMapMode }) => {
             </Link>
           </span>
         </div>
-
       </div>
       <ul className="nav navbar d-inline-flex justify-content-center">
         {inMapMode === true && (
-            <div className="nav nav-item ps-2 pe-2">
-              <Link
-                  className={`btn wd-profile-icon`}
-                  to={`/profile`}
-                  exact={true}
-              >
-                <i className="fas fa-user"></i>
-              </Link>
-            </div>
-        )}
-        {!user && (
-          <li className="nav nav-item ps-2 pe-2">
+          <div className="nav nav-item ps-2 pe-2">
             <Link
+              className={`btn wd-profile-icon`}
+              to={`/profile`}
+              exact={true}
+            >
+              <i className="fas fa-user"></i>
+            </Link>
+          </div>
+        )}
+        {user !== null && (
+          <li className="nav nav-item ps-2 pe-2">
+            <button
               className="logout btn btn-danger wd-logout-btn wd-round-btn"
-              to="/logout"
+              onClick={logoutHandler}
             >
               Logout
-            </Link>
+            </button>
           </li>
         )}
 
-        {user && (
+        {user === null && (
           <>
             <li className="nav nav-item ps-2 pe-2">
               <Link
