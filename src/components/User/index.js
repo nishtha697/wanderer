@@ -42,7 +42,7 @@ const User = () => {
     verified: false,
     address: "",
     contact: "",
-    cardNumber: 0,
+    cardnumber: null,
   });
 
   const handleSubmit = (e) => {
@@ -57,13 +57,6 @@ const User = () => {
     formData.append("email", newUser.email);
     formData.append("cover", newUser.cover);
     formData.append("description", newUser.description);
-    let [provider, setProvider] = useState({
-      user_Id: "",
-      verified: false,
-      address: "",
-      contact: "",
-      carddetails: null,
-    });
 
     axios
       .post("http://localhost:4000/users/add/", formData)
@@ -80,7 +73,11 @@ const User = () => {
             },
           })
             .then((res) => res.json())
-            .then((user) => console.log(user));
+            .then((user) => {
+              if (user._id !== "") {
+                history.push("/");
+              }
+            });
         } else {
           history.push("/");
         }
@@ -90,26 +87,6 @@ const User = () => {
         console.log(err);
         setLoggedIn(false);
       });
-
-    if (newUser.role === "provider") {
-      setProvider({ ...provider, user_Id: res.data._id });
-      console.log(provider);
-      fetch("http://localhost:4000/api/registration", {
-        method: "POST",
-        body: JSON.stringify(provider),
-        headers: {
-          "content-type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((user) => {
-          if (user._id !== "") {
-            history.push("/");
-          }
-        });
-    } else {
-      history.push("/");
-    }
 
     setLoggedIn(true);
   };
