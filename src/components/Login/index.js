@@ -16,7 +16,7 @@ const Login = () => {
     setNewUser({ ...newUser, email: e.target.value });
   };
 
-  // const [ userData, setUserData ] = useContext(UserContext);
+  // const [userData, setUserData] = useContext(UserContext);
   const [userData, setUserData] = useState({});
 
   const handleSubmit = async (e) => {
@@ -26,17 +26,21 @@ const Login = () => {
       const formData = new FormData();
       formData.append("email", newUser.email);
       formData.append("password", newUser.password);
-      console.log(newUser);
+
       const res = await axios.post(
         "http://localhost:4000/users/login/",
         formData
       );
 
+      console.log(res);
+
       setUserData({
         token: res.data.token,
-        user: res.data.user,
+        user: res.data.resUser,
       });
       localStorage.setItem("auth-token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.resUser));
+      console.log(localStorage.getItem("user"));
       history.push("/");
 
       // console.log(loginRes.data.user);
