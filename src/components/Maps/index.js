@@ -3,6 +3,7 @@ import ReactMapGL, {Marker, Popup} from "react-map-gl";
 import {useDispatch, useSelector} from "react-redux";
 import {deletePost, postNewPost} from "../../services/postService";
 import {getCurrentProfile} from "../../services/userService";
+import {format} from "timeago.js";
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -122,7 +123,7 @@ const Maps = ({posts}) => {
                                          style={{border: "none", width: "auto", maxWidth: "500px"}}>
                                         <h6 className="wd-popup">{post.title}</h6>
                                         <p className="wd-popup wd-popup-description">{post.description}</p>
-                                        <span className="wd-popup-date">1 hour ago</span>
+                                        <span className="wd-popup-date">{format(post.createdAt)}</span>
                                         {post.user_Id.toString() === user._id && <button
                                             className="btn btn-danger rounded-pill m-1 wd-tweet"
                                             onClick={() => deletePostClickHandler(post)}>
@@ -131,7 +132,7 @@ const Maps = ({posts}) => {
                                     </div>
                                 </Popup>
                             )}
-                            {post._id === currentPlaceId && post.location !== undefined && (
+                            {post._id === currentPlaceId && post.location !== undefined && post.visit_date === undefined && (
                                 <Popup
                                     key={post._id}
                                     latitude={latitude}

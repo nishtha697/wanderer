@@ -8,7 +8,9 @@ import {likePost} from "../../services/postService";
 import {useDispatch} from "react-redux";
 
 const Post = ({posts}) => {
-    const latestPost = posts.reduce((a, b) => (a.createdAt > b.createdAt ? a : b));
+
+    debugger;
+    const latestPost = posts.length !== 0 && posts.reduce((a, b) => (a.createdAt > b.createdAt ? a : b));
     const [user, setUser] = useState({});
 
     useEffect(() => {
@@ -50,7 +52,7 @@ const Post = ({posts}) => {
             <div className="row">
                 <div className="col-1">
                     <img className="wd-profile-image"
-                         src={`${process.env.PUBLIC_URL}/images/profile-image.png`}
+                         src={`http://localhost:4000/${user.profile_pic}`}
                          alt="profile image"/>
                 </div>
                 <div className="col-11 wd-image-content">

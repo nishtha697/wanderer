@@ -50,7 +50,7 @@ const NewPost = ({userId, userRole}) => {
             description,
             user_Id: userId,
             latitude: lat,
-            visitDate: date,
+            visit_date: date,
             longitude: lng,
             location: result
         }).then(() => toast.success("Post saved.", {theme: "colored"}))
@@ -72,7 +72,7 @@ const NewPost = ({userId, userRole}) => {
             <div
                 id="wd-parent" className="nav nav-pills shadow ps-5 pe-5 pb-2 pt-2 mb-2 wd-add-post-search">
                 <div className=" navbar">
-                    <div className="wd-search">
+                    <div className="wd-add-search">
           <span>
             <i className="fas fa-map-marker-alt"/>
               <ToastContainer/>
@@ -80,12 +80,12 @@ const NewPost = ({userId, userRole}) => {
                 publicKey={process.env.REACT_APP_MAPBOX}
                 inputClass="wd-search-twitter form-control "
                 onSuggestionSelect={_suggestionSelect}
-                country="us"
+                countries="us ae"
                 resetSearch={false}
                 placeholder="Search Location"
             />
               <button
-                  className={`btn btn-primary wd-search-btn wd-round-btn `}
+                  className={`btn btn-primary wd-add-search-btn wd-round-btn `}
                   onClick={handleSearchClick}
                   disabled={!result}
               >
@@ -173,13 +173,13 @@ const NewPost = ({userId, userRole}) => {
                               rows="4"
                               placeholder="Tell us more about this service (is it a tour, an activity, etc) ">
                     </textarea>
-                    </div>
-                <button
-                    className="btn btn-primary rounded-pill m-1 wd-provider-btn"
-                    onClick={submitClickHandler}>
-                    Add Post
-                </button></>}
                 </div>
+                    <button
+                        className="btn btn-primary rounded-pill m-1 wd-provider-btn"
+                        onClick={submitClickHandler}>
+                        Add Post
+                    </button></>}
+            </div>
         </>
     )
 }

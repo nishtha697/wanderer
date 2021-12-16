@@ -18,4 +18,3 @@ const user = (state = userData, action) => {
 };
 
 export default user;
-

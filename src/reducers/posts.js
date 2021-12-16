@@ -43,4 +43,3 @@ const posts = (state = enteries, action) => {
 };
 
 export default posts;
-
