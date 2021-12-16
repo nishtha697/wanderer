@@ -15,7 +15,7 @@ const SearchComponent = () => {
     <>
       <Navbar />
       <div>
-        <SearchMap lat={latitude} lng={longitude} />
+        <SearchMap lat={latitude} lng={longitude} search={search}/>
         <div>
           <ul>
             <Results lat={latitude} lng={longitude} search={search}/>

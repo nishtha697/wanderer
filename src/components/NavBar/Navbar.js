@@ -59,7 +59,7 @@ const Navbar = ({ inMapMode }) => {
               publicKey="pk.eyJ1Ijoic2FuYXRkIiwiYSI6ImNrd3c1ZHFjMDAwY20ybnJub2JwbXpzZ28ifQ.BdhcnhVjty1EWLcHzHVKhw"
               inputClass="wd-search-twitter form-control"
               onSuggestionSelect={_suggestionSelect}
-              country="us"
+              countries="us ae"
               resetSearch={false}
             />
             {/* <input className="wd-search-twitter form-control" type="search"

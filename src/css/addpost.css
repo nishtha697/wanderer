@@ -1,11 +1,11 @@
 
-.wd-search {
+.wd-add-search {
     display: inline-flex;
 }
 
-.wd-search-btn {
+.wd-add-search-btn {
     position: absolute;
-    top: 11px;
+    top: 8px;
     right: 0px;
 }
 

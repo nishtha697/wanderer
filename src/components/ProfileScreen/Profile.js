@@ -36,10 +36,10 @@ const Profile = () => {
   useEffect(() => { getCurrentProfile(dispatch, "nishthagoswami697@gmail.com")}, []);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/providers/${user._id}`)
+    fetch(`http://localhost:4000/api/provider/${user._id}`)
         .then(response => response.json())
         .then((provider) => setProvider(provider))
-  });
+  }, []);
 
 
   const dob = new Date(Date.parse(user.dateOfBirth));
@@ -127,7 +127,7 @@ const Profile = () => {
                       Feed
                     </div>
                   </li>
-                  {!isFriendProfile && (user.role === "user" || provider.verified === true) && <li className="nav-item">
+                  {!isFriendProfile && (user.role === "user" || (provider !== null && provider.verified === true)) && <li className="nav-item">
                     <div className={`nav-link wd-profile-tab ${active === "add_post"
                                                                ? "active" : ""}`}
                          onClick={() => setActive("add_post")}>New Post

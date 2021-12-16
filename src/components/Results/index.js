@@ -30,21 +30,39 @@ const Results = (props) => {
         <li className="list-group-item wd-search-results">No search results</li>
       );
     }
-  };
 
-  return (
-    <div className="container ">
-      <div className="row">
-        <div className="col-2" />
-        <div className="col-8">
-          <h5 className="list-group-item  wd-search-results">
-            Service providers for{" "}
-            <span className="wd-text">{props.search}</span>
-          </h5>
-          {posts.map((post) => (
-            <Result post={post} />
-          ))}
-          {noResults(posts)}
+    const servicePosts = posts.filter((item) => item.visit_date === undefined)
+
+    const userPosts = posts.filter((item) => item.visit_date !== undefined)
+
+    return (
+
+        <div className="container ">
+            <div className="row">
+                <div className="col-2" />
+                <div className="col-8">
+                    <h5 className="wd-text pt-3">{props.search}</h5>
+                    <div className="list-group">
+                    <h6 className="list-group-item  wd-search-results">Service providers</h6>
+                    {
+                        servicePosts.map((post) =>
+                                      <Result post={post} />
+                        )
+                    }
+                    {noResults(servicePosts)}
+                    </div>
+                    <div className="list-group mt-5">
+                    <h6 className="list-group-item  wd-search-results">Posts</h6>
+                    {
+                        userPosts.map((post) =>
+                                             <Result post={post} />
+                        )
+                    }
+                    {noResults(userPosts)}
+                    </div>
+                </div>
+                <div className="col-2" />
+            </div>
         </div>
         <div className="col-2" />
       </div>

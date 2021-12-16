@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
 const SearchMap = (props) => {
   const [viewport, setViewport] = useState({
@@ -10,6 +10,8 @@ const SearchMap = (props) => {
     longitude: -74.23,
     zoom: 12,
   });
+
+  const [popup, setPopup] = useState(false);
 
   useEffect(() => {
     setViewport({
@@ -34,6 +36,7 @@ const SearchMap = (props) => {
         longitude={props.lng}
         offsetLeft={-20}
         offsetTop={-10}
+        onClick={() => setPopup(true)}
       >
         <i
           className="fas fa-map-marker-alt"
@@ -44,6 +47,17 @@ const SearchMap = (props) => {
           }}
         />
       </Marker>
+      {popup === true && <Popup
+          key={0}
+          latitude={props.lat}
+          longitude={props.lng}
+          closeButton={true}
+          closeOnClick={false}
+          anchor="left"
+          onClose={() => setPopup(false)}
+      >
+        {props.search}
+      </Popup>}
     </ReactMapGL>
   );
 };

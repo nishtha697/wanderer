@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 const Post = ({posts}) => {
 
     debugger;
-    const latestPost = posts.reduce((a, b) => (a.createdAt > b.createdAt ? a : b));
+    const latestPost = posts.length !== 0 && posts.reduce((a, b) => (a.createdAt > b.createdAt ? a : b));
     const [user, setUser] = useState({});
 
     useEffect(() => {

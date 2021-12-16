@@ -132,7 +132,7 @@ const Maps = ({posts}) => {
                                     </div>
                                 </Popup>
                             )}
-                            {post._id === currentPlaceId && post.location !== undefined && (
+                            {post._id === currentPlaceId && post.location !== undefined && post.visit_date === undefined && (
                                 <Popup
                                     key={post._id}
                                     latitude={latitude}
