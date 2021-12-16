@@ -4,6 +4,11 @@ import ReactMapGL, { Marker } from "react-map-gl";
 import Navbar from "../NavBar/Navbar";
 
 const HomeScreen = () => {
+  //******** Code to get the current logged in user */
+
+  console.log(localStorage.getItem("user"));
+
+  /************************************************ */
   const [viewport, setViewport] = useState({
     width: "100vw",
     height: "50vh",
