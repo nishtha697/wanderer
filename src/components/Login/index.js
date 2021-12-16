@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
+import UserContext from "../../context/UserContext";
 import Navbar from "../NavBar/Navbar";
 
 const Login = () => {
@@ -14,17 +16,45 @@ const Login = () => {
     setNewUser({ ...newUser, email: e.target.value });
   };
 
-  const handleSubmit = () => {
-    fetch("http://localhost:4000/api/login", {
-      method: "POST",
-      body: JSON.stringify(newUser),
-      credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((status) => history.push("/"))
-      .catch((err) => console.log(err));
+  // const [ userData, setUserData ] = useContext(UserContext);
+  const [userData, setUserData] = useState({});
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      // const loginUser = newUser;
+      const formData = new FormData();
+      formData.append("email", newUser.email);
+      formData.append("password", newUser.password);
+      console.log(newUser);
+      const res = await axios.post(
+        "http://localhost:4000/users/login/",
+        formData
+      );
+
+      setUserData({
+        token: res.data.token,
+        user: res.data.user,
+      });
+      localStorage.setItem("auth-token", res.data.token);
+      history.push("/");
+
+      // console.log(loginRes.data.user);
+    } catch (err) {
+      console.log(err);
+      // err.response.data.msg && setError(err.response.data.msg);
+    }
+
+    // fetch("http://localhost:4000/api/login", {
+    //   method: "POST",
+    //   body: JSON.stringify(newUser),
+    //   credentials: "include",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    // })
+    //   .then((status) => history.push("/"))
+    //   .catch((err) => console.log(err));
   };
   return (
     // <div className="">
@@ -47,7 +77,7 @@ const Login = () => {
                         Log in
                       </p>
 
-                      <div className="mx-1 mx-md-4">
+                      <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
@@ -83,14 +113,14 @@ const Login = () => {
 
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button
+                            type="submit"
                             value="Login"
                             className="btn btn-primary btn-lg"
-                            onClick={handleSubmit}
                           >
                             Login
                           </button>
                         </div>
-                      </div>
+                      </form>
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                       <img
