@@ -5,22 +5,19 @@ import {fetchAllPosts} from "../../services/postService";
 
 const selectAllPosts = (state) => state.posts;
 
-const PostList = () => {
+const PostList = ({userId}) => {
+    debugger;
     const posts = useSelector(selectAllPosts);
     const dispatch = useDispatch();
     useEffect(() => fetchAllPosts(dispatch), [])
 
+    //need to sort out filtering of new post
+    const sortedPosts = posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    let uniqueUsers = [...new Set(sortedPosts.map(item => item.user_Id))];
 
-    // const pins = posts.map(post => {
-    //     return {
-    //         post.latitude,
-    //         post.longitude
-    //     }
-    // });
-
-    posts.sort((a,b)=>new Date(a.createdAt).getTime()-new Date(b.createdAt).getTime());
-    const uniqueUsers = [...new Set(posts.map(item => item.user_Id))];
-
+    if (userId !== undefined) {
+        uniqueUsers = [userId]
+    }
     return (
         <ul className="list-group">
             {uniqueUsers.map(user => {

@@ -34,7 +34,8 @@ export const deletePost = (dispatch, post) =>
                                      post
                                  }));
 
-export const likePost = (dispatch, post) =>
+export const likePost = (dispatch, post) => {
+    console.log(post)
     fetch(`${POST_API}/${post._id}/like`, {
         method: 'PUT',
         body: JSON.stringify(post),
@@ -47,5 +48,4 @@ export const likePost = (dispatch, post) =>
                          type: 'like-post',
                          post
                      })).then(response => response.json());
-
-
+}

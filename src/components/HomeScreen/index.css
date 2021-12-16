@@ -6,8 +6,7 @@
   border: 1px solid #ccc;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  margin-top: -1.3rem;
-  margin-left: 260px;
+  margin-top: 0rem;
 }
 
 .react-mapbox-ac-input {
@@ -24,4 +23,10 @@
 
 .react-mapbox-ac-suggestion:hover {
   background-color: #58a;
+}
+
+.connect {
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
 }
