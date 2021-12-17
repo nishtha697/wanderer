@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import SearchMap from "../Maps/SearchMap";
 import Navbar from "../NavBar/Navbar";
 import Results from "../Results";

@@ -3,7 +3,7 @@ import "../../css/profile.css";
 import PostList from "../PostList/PostList.js";
 import { Link } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   getProfileById,
   updateCurrentProfile,
@@ -23,9 +23,6 @@ function closeEditProfile() {
 }
 
 const Profile = () => {
-  debugger;
-  // const userData = (state) => state.user;
-  // let user = useSelector(userData);
   let [user, setUser] = useState([]);
   const location = useLocation();
   let isFriendProfile = false;
@@ -36,16 +33,8 @@ const Profile = () => {
     friendUserId = user._id;
   }
   const [provider, setProvider] = useState({});
-  const dispatch = useDispatch();
-
-  const [loggedUser, setLoggedUser] = useState();
-  // useEffect(() => {
-  //
-  // }, [user]);
 
   useEffect(() => {
-    setLoggedUser(() => JSON.parse(localStorage.getItem("user")));
-
     fetch(`${PROFILE_API}/${JSON.parse(localStorage.getItem("user"))._id}`)
       .then((response) => response.json())
       .then((user) => setUser(user));
@@ -58,10 +47,6 @@ const Profile = () => {
       .then((response) => response.json())
       .then((provider) => setProvider(provider));
   }, [localStorage.getItem("user")]);
-
-  // useEffect(() => {
-  //
-  // }, []);
 
   const dob = new Date(Date.parse(user.dateOfBirth));
   const [active, setActive] = useState("feed");

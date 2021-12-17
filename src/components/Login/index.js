@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
-import UserContext from "../../context/UserContext";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import Navbar from "../NavBar/Navbar";
 
 const Login = () => {
@@ -16,8 +16,6 @@ const Login = () => {
     setNewUser({ ...newUser, email: e.target.value });
   };
 
-  // const [userData, setUserData] = useContext(UserContext);
-  const [userData, setUserData] = useState({});
   let [error, setError] = useState();
 
   const handleSubmit = async (e) => {
@@ -34,44 +32,19 @@ const Login = () => {
 
       console.log(res);
 
-      setUserData({
-        token: res.data.token,
-        user: res.data.resUser,
-      });
       localStorage.setItem("auth-token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.resUser));
-      // console.log(localStorage.getItem("user"));
+
       if (res.data.resUser.role === "admin") {
         history.push("/admin");
       } else {
         history.push("/");
       }
-
-      // console.log(loginRes.data.user);
     } catch (err) {
-      // console.log(err);
       setError("Invalid credentials. Please try again!");
-      // err.response.data.msg && setError(err.response.data.msg);
     }
-
-    // fetch("http://localhost:4000/api/login", {
-    //   method: "POST",
-    //   body: JSON.stringify(newUser),
-    //   credentials: "include",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    // })
-    //   .then((status) => history.push("/"))
-    //   .catch((err) => console.log(err));
   };
   return (
-    // <div className="">
-    //   <form onSubmit={handleSubmit} encType="multipart/form-data">
-
-    //     <input type="submit" />
-    //   </form>
-    // </div>
     <>
       <Navbar />
       <section className="vh-100" style={{ backgroundColor: "#eee" }}>
@@ -133,7 +106,7 @@ const Login = () => {
                       <img
                         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.png"
                         className="img-fluid"
-                        alt="Sample image"
+                        alt="Sample img"
                       />
                     </div>
                   </div>

@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllPosts } from "../../services/postService";
 import "../../css/searchresults.css";
 import Result from "./Result";
 
@@ -55,13 +53,15 @@ const Results = (props) => {
             ))}
             {noResults(servicePosts)}
           </div>
-          {user !== null  && <div className="list-group mt-5">
-            <h6 className="list-group-item  wd-search-results">Posts</h6>
-            {userPosts.map((post) => (
-              <Result post={post} />
-            ))}
-            {noResults(userPosts)}
-          </div>}
+          {user !== null && (
+            <div className="list-group mt-5">
+              <h6 className="list-group-item  wd-search-results">Posts</h6>
+              {userPosts.map((post) => (
+                <Result post={post} />
+              ))}
+              {noResults(userPosts)}
+            </div>
+          )}
         </div>
         <div className="col-2"></div>
       </div>

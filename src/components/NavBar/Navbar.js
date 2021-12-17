@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
-import SearchComponent from "../SearchComponent";
 
 import "./navbar.css";
 
@@ -19,15 +18,13 @@ const Navbar = ({ inProfileMode = false }) => {
   let [lat, setLat] = useState(null);
   let [lng, setLng] = useState(null);
   let [result, setResult] = useState("");
-  let [isSearched, setIsSearched] = useState(false);
+
   const _suggestionSelect = (result, lat, lng, text) => {
     setResult(result);
     const lt = Number(lat);
     const lang = Number(lng);
     setLat(lt);
     setLng(lang);
-
-    setIsSearched(true);
   };
 
   const logoutHandler = () => {

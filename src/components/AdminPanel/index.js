@@ -8,7 +8,6 @@ const PROVIDER_API = "http://18.222.87.70:4000/api/provider/unverified";
 
 const AdminPanel = () => {
   let [unverifiedProviders, setUnverifiedProviders] = useState([]);
-  // const [user, setUser] = useState();
   const history = useHistory();
 
   useEffect(() => {
@@ -29,8 +28,6 @@ const AdminPanel = () => {
     (provider) => provider.user_Id !== ""
   );
 
-  // ) {
-  // console.log("Here");
   return (
     <>
       <Navbar />

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import "./user.css";
-import Profile from "../ProfileScreen/Profile";
 import Navbar from "../NavBar/Navbar";
 import Privacy from "../Privacy/Privacy";
 import Modal from "react-modal";
@@ -24,7 +23,6 @@ const customStyles = {
 
 const User = () => {
   let history = useHistory();
-  let [loggedIn, setLoggedIn] = useState(false);
   const [newUser, setNewUser] = useState({
     role: "user",
     name: "",
@@ -63,16 +61,9 @@ const User = () => {
       .then((res) => {
         console.log(res);
         if (newUser.role === "provider") {
-<<<<<<< HEAD
           const prov = { ...provider, user_Id: res.data._id };
-          // setProvider({ ...provider, user_Id: res.data._id });
-          // console.log(prov);
-          fetch("http://localhost:4000/api/registration", {
-=======
-          setProvider({ ...provider, user_Id: res.data._id });
           console.log(provider);
           fetch("http://18.222.87.70:4000/api/registration", {
->>>>>>> c90bdb79aa5281b1ccb6ee5e7d7a64994b6d0bd2
             method: "POST",
             body: JSON.stringify(prov),
             headers: {
@@ -93,10 +84,7 @@ const User = () => {
 
       .catch((err) => {
         console.log(err);
-        setLoggedIn(false);
       });
-
-    setLoggedIn(true);
   };
 
   const handleChange = (e) => {
@@ -156,18 +144,7 @@ const User = () => {
     setIsOpen(false);
   }
 
-  // console.log(loggedIn);
-  // if (loggedIn) {
-  //   return <Profile />;
-  // }
-
   return (
-    // <div className="">
-    //   <form onSubmit={handleSubmit} encType="multipart/form-data">
-
-    //     <input type="submit" />
-    //   </form>
-    // </div>
     <>
       <Navbar />
       <section className="vh-100" style={{ backgroundColor: "#eee" }}>
@@ -442,7 +419,7 @@ const User = () => {
                       <img
                         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.png"
                         className="img-fluid"
-                        alt="Sample image"
+                        alt="Sample img"
                       />
                     </div>
                   </div>

@@ -30,7 +30,6 @@ const HomeScreen = () => {
           type: "fetch-all-posts",
           posts,
         });
-        debugger;
         if (localStorage.getItem("user") !== null) {
           console.log(localStorage.getItem("user"));
           console.log(JSON.parse(localStorage.getItem("user"))._id);
@@ -94,7 +93,11 @@ const HomeScreen = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-4">
-            <img src="/images/connect.jpg" className="connect" />
+            <img
+              src="/images/connect.jpg"
+              className="connect"
+              alt="connect-img"
+            />
             <h2>Connect</h2>
             <p>
               Want to share some of your best moments with everyone out there?
@@ -103,7 +106,11 @@ const HomeScreen = () => {
             </p>
           </div>
           <div className="col-lg-4">
-            <img src="/images/location.jpg" className="connect" />
+            <img
+              src="/images/location.jpg"
+              className="connect"
+              alt="location-img"
+            />
             <h2>Experience</h2>
             <p>
               With Wanderer, you can explore places which you have never visited
@@ -112,7 +119,11 @@ const HomeScreen = () => {
             </p>
           </div>
           <div className="col-lg-4">
-            <img src="/images/service-provider.jpg" className="connect" />
+            <img
+              src="/images/service-provider.jpg"
+              className="connect"
+              alt="provider-img"
+            />
             <h2>Business</h2>
             <p>
               Want to grow your business? Join us on Wanderer where you can
