@@ -14,8 +14,8 @@ const Service = ({services}) => {
 }
 
 const ListItem = ({service}) => {
-    const userData = (state) => state.user;
-    const user = useSelector(userData);
+    debugger;
+
     const dispatch = useDispatch();
 
     const deletePostClickHandler = (post) => {
@@ -28,7 +28,7 @@ const ListItem = ({service}) => {
                 <h6>{service.title}</h6>
                 <p>{service.description}</p>
             </div>
-            {user._id === service.user_Id && <div className="col-1">
+            {JSON.parse(localStorage.getItem("user"))._id === service.user_Id && <div className="col-1">
                 <button
                     className="btn rounded-pill m-1 wd-delete-service"
                     onClick={() => deletePostClickHandler(service)}>

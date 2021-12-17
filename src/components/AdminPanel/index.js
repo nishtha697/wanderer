@@ -14,6 +14,7 @@ const AdminPanel = () => {
       .then((providers) => setUnverifiedProviders(providers));
   });
 
+  const validProviders = unverifiedProviders.filter(provider => provider.user_Id !== "")
 
   return (
     <>
@@ -21,7 +22,7 @@ const AdminPanel = () => {
       <div className="container pt-5">
         <h2>Pending Approvals</h2>
         <ul className="list-group">
-          {unverifiedProviders.map((p) => <UnVerifiedProvider provider={p} />)}
+          {validProviders.map((p) => <UnVerifiedProvider provider={p} />)}
         </ul>
       </div>
     </>

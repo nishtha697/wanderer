@@ -28,7 +28,7 @@
     "_id": {
       "$oid": "61b5d81be6228461663f4096"
     },
-    "user_Id": "61ba39137266d1198d464ea8",
+    "user_Id": "61bbc4257b2267fd93383a89",
     "title": "Dinner at Boston harbor",
     "description": "The view is amazing plus the delicious food!!! Can't get enough.",
     "visit_date": "today",
@@ -53,7 +53,7 @@
     "_id": {
       "$oid": "61b5d821e6228461663f4097"
     },
-    "user_Id": "61ba2f955e83f3d4f09c5bff",
+    "user_Id": "61bbcb6f2d269900e983e8fb",
     "title": "Kayaking at Charles river",
     "description": "The fresh breeze and the water. What more do you need? :)",
     "visit_date": "today",
@@ -71,6 +71,31 @@
     "updatedAt": {
       "$date": {
         "$numberLong": "1639326116140"
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "61bbb7506361089c067ebb71"
+    },
+    "user_Id": "61badaa92f137d39fb44b0a5",
+    "title": "trekking",
+    "description": "gcgh",
+    "latitude": {
+      "$numberDouble": "42.2173"
+    },
+    "longitude": {
+      "$numberDouble": "-73.8646"
+    },
+    "location": "Catskill, New York, United States",
+    "createdAt": {
+      "$date": {
+        "$numberLong": "1639515217200"
+      }
+    },
+    "updatedAt": {
+      "$date": {
+        "$numberLong": "1639636682145"
       }
     }
   }

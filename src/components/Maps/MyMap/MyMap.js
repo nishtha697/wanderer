@@ -1,10 +1,11 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {fetchAllPosts} from "../../../services/postService";
 import {useDispatch, useSelector} from "react-redux";
 import Maps from "../index.js";
 import Navbar from "../../NavBar/Navbar";
 import {getCurrentProfile} from "../../../services/userService";
 import {useLocation} from "react-router-dom";
+const PROFILE_API = 'http://localhost:4000/api/user';
 
 const selectAllPosts = (state) => state.posts;
 const MyMap = () => {
@@ -13,9 +14,7 @@ const MyMap = () => {
     const dispatch = useDispatch();
     useEffect(() => fetchAllPosts(dispatch), [])
 
-    const userData = (state) => state.user;
-    const user = useSelector(userData);
-    useEffect(() => getCurrentProfile(dispatch, "nishthagoswami697@gmail.com"), [])
+    const user = JSON.parse(localStorage.getItem("user"));
 
     let userId = user._id;
 

@@ -32,6 +32,12 @@ const Results = (props) => {
     }
   };
 
+  const [user, setUser] = useState();
+  // console.log(localStorage.getItem("user"));
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, [user]);
+
   const servicePosts = posts.filter((item) => item.visit_date === undefined);
 
   const userPosts = posts.filter((item) => item.visit_date !== undefined);
@@ -51,13 +57,13 @@ const Results = (props) => {
             ))}
             {noResults(servicePosts)}
           </div>
-          <div className="list-group mt-5">
+          {user !== null  && <div className="list-group mt-5">
             <h6 className="list-group-item  wd-search-results">Posts</h6>
             {userPosts.map((post) => (
               <Result post={post} />
             ))}
             {noResults(userPosts)}
-          </div>
+          </div>}
         </div>
         <div className="col-2"></div>
       </div>

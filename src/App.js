@@ -18,6 +18,7 @@ import Login from "./components/Login";
 import Privacy from "./components/Privacy";
 import HomeScreen from "./components/HomeScreen";
 
+
 const reducer = combineReducers({ posts, user });
 
 const store = createStore(
@@ -26,7 +27,7 @@ const store = createStore(
 );
 
 function App() {
-  return (
+  return (<>
     <Provider store={store}>
       <BrowserRouter>
         {/*<Route path="/" element={<HomeScreen/>}/>*/}
@@ -78,6 +79,7 @@ function App() {
         </Route>
       </BrowserRouter>
     </Provider>
+      </>
   );
 }
 

@@ -6,14 +6,12 @@ import {getCurrentProfile} from "../../services/userService";
 import {format} from "timeago.js";
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+const PROFILE_API = 'http://localhost:4000/api/user';
 
 const Maps = ({posts}) => {
 
     const dispatch = useDispatch();
-    const userData = (state) => state.user;
-    const user = useSelector(userData);
-    useEffect(() => getCurrentProfile(dispatch, "nishthagoswami697@gmail.com"), [])
-
+    const user = JSON.parse(localStorage.getItem("user"));
     const [viewport, setViewport] = useState({
                                                  width: "100vw",
                                                  height: "100vh",
