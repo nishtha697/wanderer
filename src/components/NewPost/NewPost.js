@@ -45,22 +45,25 @@ const NewPost = ({userId, userRole}) => {
 
 
     const submitClickHandler = () => {
-        postNewPost(dispatch, {
-            title,
-            description,
-            user_Id: userId,
-            latitude: lat,
-            visit_date: date,
-            longitude: lng,
-            location: result
-        }).then(() => toast.success("Post saved.", {theme: "colored"}))
+        if (title === "") {
+            toast.error("Title cannot be empty!", { theme: "colored" });
+        } else {
+            postNewPost(dispatch, {
+                title,
+                description,
+                user_Id: userId,
+                latitude: lat,
+                visit_date: date,
+                longitude: lng,
+                location: result
+            }).then(() => toast.success("Post saved.", {theme: "colored"}))
 
-        setTitle("")
-        setDescription("")
-        if (userRole !== "provider") {
-            setResult("")
+            setTitle("")
+            setDescription("")
+            if (userRole !== "provider") {
+                setResult("")
+            }
         }
-
     }
 
     const handleSearchClick = () => {

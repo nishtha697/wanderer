@@ -29,7 +29,7 @@ const ListItem = ({ service }) => {
           <h6>{service.title}</h6>
           <p>{service.description}</p>
         </div>
-        {JSON.parse(localStorage.getItem("user"))._id === service.user_Id && (
+        {JSON.parse(localStorage.getItem("user")) && JSON.parse(localStorage.getItem("user"))._id === service.user_Id && (
           <div className="col-1">
             <button
               className="btn rounded-pill m-1 wd-delete-service"

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { useDispatch } from "react-redux";
 import { deletePost, postNewPost } from "../../services/postService";
+import { Link } from "react-router-dom";
 
 import { format } from "timeago.js";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,7 +11,7 @@ const PROFILE_API = "http://18.222.87.70:4000/api/user";
 
 const Maps = ({ posts }) => {
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const loggedUser = JSON.parse(localStorage.getItem("user"));
   const [viewport, setViewport] = useState({
     width: "100vw",
     height: "100vh",
@@ -24,9 +25,13 @@ const Maps = ({ posts }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(null);
+  const [user, setUser] = useState({});
 
-  const popupMarker = (id, lat, long) => {
-    setCurrentPlaceId(id);
+  const popupMarker = (post, lat, long) => {
+    fetch(`${PROFILE_API}/${post.user_Id}`)
+        .then((response) => response.json())
+        .then((user) => setUser(user));
+    setCurrentPlaceId(post._id);
     setViewport({ ...viewport, latitude: lat, longitude: long });
   };
 
@@ -39,19 +44,24 @@ const Maps = ({ posts }) => {
   };
 
   const submitClickHandler = () => {
-    postNewPost(dispatch, {
-      title,
-      description,
-      user_Id: user._id,
-      latitude: newLocation.lat,
-      longitude: newLocation.long,
-      visit_date: date,
-    }).then(() => toast.success("Post saved.", { theme: "colored" }));
-    setNewLocation(null);
+    if (title === "") {
+      toast.error("Title cannot be empty!", { theme: "colored" });
+    } else {
+      postNewPost(dispatch, {
+        title,
+        description,
+        user_Id: loggedUser._id,
+        latitude: newLocation.lat,
+        longitude: newLocation.long,
+        visit_date: date,
+      }).then(() => toast.success("Post saved.", {theme: "colored"}));
+      setNewLocation(null);
+      setDescription("");
+    }
   };
 
   const deletePostClickHandler = (post) => {
-    deletePost(dispatch, post);
+    deletePost(dispatch, post).then(() => toast.info("Post deleted.", { theme: "colored" }));
   };
 
   const providerPosts = posts.filter((item) => item.location !== undefined);
@@ -102,12 +112,12 @@ const Maps = ({ posts }) => {
                   style={{
                     fontSize: 4 * viewport.zoom,
                     color:
-                      post.user_Id.toString() === user._id
+                        loggedUser && (post.user_Id.toString() === loggedUser._id)
                         ? "dodgerblue"
                         : "orangered",
                     cursor: "pointer",
                   }}
-                  onClick={() => popupMarker(post._id, latitude, longitude)}
+                  onClick={() => popupMarker(post, latitude, longitude)}
                 />
               </Marker>
               {post._id === currentPlaceId && post.visit_date !== undefined && (
@@ -124,6 +134,13 @@ const Maps = ({ posts }) => {
                     className="card"
                     style={{ border: "none", width: "auto", maxWidth: "500px" }}
                   >
+                    <Link
+                        className="wd-user"
+                        to={{
+                          pathname: `/profile/${user._id}`,
+                          state: { user: user },
+                        }}
+                    >{user.firstName} {user.lastName}</Link>
                     <h6 className="wd-popup">{post.title}</h6>
                     <p className="wd-popup wd-popup-description">
                       {post.description}
@@ -131,7 +148,7 @@ const Maps = ({ posts }) => {
                     <span className="wd-popup-date">
                       {format(post.createdAt)}
                     </span>
-                    {post.user_Id.toString() === user._id && (
+                    {loggedUser && (post.user_Id.toString() === loggedUser._id) && (
                       <button
                         className="btn btn-danger rounded-pill m-1 wd-tweet"
                         onClick={() => deletePostClickHandler(post)}
@@ -166,9 +183,12 @@ const Maps = ({ posts }) => {
                       {serviceTitlesMapByLocation
                         .get(post.location)
                         .map((title) => (
-                          <p className="wd-popup wd-popup-description wd-profile-link">
+                          <Link className="wd-popup wd-popup-description wd-profile-link" to={{
+                            pathname: `/profile/${user._id}`,
+                            state: { user: user },
+                          }}>
                             {title}
-                          </p>
+                          </Link>
                         ))}
                     </div>
                   </Popup>
@@ -176,7 +196,7 @@ const Maps = ({ posts }) => {
             </>
           );
         })}
-        {newLocation && user.role === "user" && (
+        {newLocation && loggedUser.role === "user" && (
           <>
             <Marker
               latitude={newLocation.lat}
@@ -207,6 +227,7 @@ const Maps = ({ posts }) => {
                   className="p-1 m-1 wd-add-input"
                   placeholder="Title"
                   autoFocus
+                  value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <label className="ms-1 mt-1 wd-input-label">Visit date:</label>
@@ -217,13 +238,13 @@ const Maps = ({ posts }) => {
                 />
                 <label className="ms-1 mt-1 wd-input-label">Description:</label>
                 <textarea
-                  className="p-1 m-1 wd-add-input"
-                  value={description}
-                  onChange={(event) => setDescription(event.target.value)}
-                  width="100%"
-                  rows="6"
-                  placeholder="Tell us about your experience"
-                ></textarea>
+    className="p-1 m-1 wd-add-input"
+    value={description}
+    onChange={(event) => setDescription(event.target.value)}
+    width="100%"
+    rows="6"
+    placeholder="Tell us about your experience"
+    />
                 <button
                   className="btn btn-primary rounded-pill m-1 wd-tweet"
                   onClick={submitClickHandler}

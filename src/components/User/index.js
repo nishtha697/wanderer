@@ -5,6 +5,7 @@ import "./user.css";
 import Navbar from "../NavBar/Navbar";
 import Privacy from "../Privacy/Privacy";
 import Modal from "react-modal";
+import { ToastContainer, toast } from "react-toastify";
 
 Modal.setAppElement("#root");
 
@@ -45,46 +46,50 @@ const User = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("role", newUser.role);
-    formData.append("photo", newUser.photo);
-    formData.append("password", newUser.password);
-    formData.append("birthdate", newUser.birthdate);
-    formData.append("name", newUser.name);
-    formData.append("lastname", newUser.lastname);
-    formData.append("email", newUser.email);
-    formData.append("cover", newUser.cover);
-    formData.append("description", newUser.description);
+    if (isPrivacyRead === false) {
+      toast.error("Please read privacy policy before registering!", { theme: "colored" });
+    } else {
+      const formData = new FormData();
+      formData.append("role", newUser.role);
+      formData.append("photo", newUser.photo);
+      formData.append("password", newUser.password);
+      formData.append("birthdate", newUser.birthdate);
+      formData.append("name", newUser.name);
+      formData.append("lastname", newUser.lastname);
+      formData.append("email", newUser.email);
+      formData.append("cover", newUser.cover);
+      formData.append("description", newUser.description);
 
-    axios
-      .post("http://18.222.87.70:4000/users/add/", formData)
-      .then((res) => {
-        console.log(res);
-        if (newUser.role === "provider") {
-          const prov = { ...provider, user_Id: res.data._id };
-          console.log(provider);
-          fetch("http://18.222.87.70:4000/api/registration", {
-            method: "POST",
-            body: JSON.stringify(prov),
-            headers: {
-              "content-type": "application/json",
-            },
+      axios
+          .post("http://18.222.87.70:4000/users/add/", formData)
+          .then((res) => {
+            console.log(res);
+            if (newUser.role === "provider") {
+              const prov = {...provider, user_Id: res.data._id};
+              console.log(provider);
+              fetch("http://18.222.87.70:4000/api/registration", {
+                method: "POST",
+                body: JSON.stringify(prov),
+                headers: {
+                  "content-type": "application/json",
+                },
+              })
+                  .then((res) => res.json())
+                  .then((user) => {
+                    console.log(user);
+                    if (user._id !== "") {
+                      history.push("/");
+                    }
+                  });
+            } else {
+              history.push("/");
+            }
           })
-            .then((res) => res.json())
-            .then((user) => {
-              console.log(user);
-              if (user._id !== "") {
-                history.push("/");
-              }
-            });
-        } else {
-          history.push("/");
-        }
-      })
 
-      .catch((err) => {
-        console.log(err);
-      });
+          .catch((err) => {
+            console.log(err);
+          });
+    }
   };
 
   const handleChange = (e) => {
@@ -136,7 +141,10 @@ const User = () => {
   };
   const [modalIsOpen, setIsOpen] = useState(false);
 
+  const [isPrivacyRead, setPrivacyRead] = useState(false);
+
   function openModal() {
+    setPrivacyRead(true);
     setIsOpen(true);
   }
 
@@ -146,6 +154,7 @@ const User = () => {
 
   return (
     <>
+      <ToastContainer />
       <Navbar />
       <section className="vh-100" style={{ backgroundColor: "#eee" }}>
         <div className="container h-100">

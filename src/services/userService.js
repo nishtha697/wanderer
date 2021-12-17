@@ -1,4 +1,4 @@
-const PROFILE_API = 'http://18.222.87.70/:4000/api/users';
+const PROFILE_API = 'http://18.222.87.70:4000/api/users';
 
 export const getCurrentProfile = (dispatch, email) =>
 

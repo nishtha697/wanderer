@@ -6,12 +6,14 @@ import "../../css/profile.css";
 import { Link } from "react-router-dom";
 import { likePost } from "../../services/postService";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const Post = ({ posts }) => {
   const latestPost =
     posts.length !== 0 &&
     posts.reduce((a, b) => (a.createdAt > b.createdAt ? a : b));
   const [user, setUser] = useState({});
+  const loggedUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     fetch(`http://18.222.87.70:4000/api/user/${latestPost.user_Id}`)
@@ -41,13 +43,20 @@ const Post = ({ posts }) => {
     setViewport({ ...viewport, latitude: lat, longitude: long });
   };
 
+  let history = useHistory();
+
   const dispatch = useDispatch();
   const likeClickHandler = (post) => {
-    likePost(dispatch, post);
+    if (loggedUser) {
+      likePost(dispatch, post);
+    } else {
+      history.push("/login");
+    }
   };
 
   return (
-    <li className="wd-post list-group-item">
+      <>
+  <li className="wd-post list-group-item">
       <div className="row">
         <div className="col-1">
           <img
@@ -134,7 +143,7 @@ const Post = ({ posts }) => {
                           className="wd-icon"
                           onClick={() => likeClickHandler(post)}
                         >
-                          <a className="wd-post-icon" href="/#">
+                          <div className="wd-post-icon">
                             {post.liked && (
                               <i
                                 className="fas fa-heart me-2"
@@ -143,7 +152,7 @@ const Post = ({ posts }) => {
                             )}
                             {!post.liked && <i className="far fa-heart me-2" />}
                             <span className="wd-icon-text">{post.likes}</span>
-                          </a>
+                          </div>
                         </div>
                       </div>
                     </Popup>
@@ -155,6 +164,7 @@ const Post = ({ posts }) => {
         </div>
       </div>
     </li>
+      </>
   );
 };
 

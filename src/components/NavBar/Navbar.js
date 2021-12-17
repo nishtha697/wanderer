@@ -2,10 +2,26 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
-
+import Modal from "react-modal";
+import Privacy from "../Privacy/Privacy";
 import "./navbar.css";
 
-const Navbar = ({ inProfileMode = false }) => {
+Modal.setAppElement("#root");
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "1000px",
+    height: "500px",
+  },
+};
+
+const Navbar = () => {
   let history = useHistory();
   const [user, setUser] = useState(() =>
     JSON.parse(localStorage.getItem("user"))
@@ -36,6 +52,16 @@ const Navbar = ({ inProfileMode = false }) => {
   const handleSearchClick = () => {
     setResult("");
   };
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   return (
     <div className="nav justify-content-between sticky-top nav-pills shadow ps-5 pe-5 pt-2 pb-2 menu">
@@ -80,8 +106,31 @@ const Navbar = ({ inProfileMode = false }) => {
         </div>
       </div>
       <ul className="nav navbar d-inline-flex justify-content-center">
+        <div
+            type="button"
+            className="wd-profile-icon nav nav-item ps-2 pe-2"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            onClick={openModal}
+        >
+          <i className="fas fa-file-signature"/>
+        </div>
+        <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel="Example Modal"
+        >
+          <Privacy />
+          <button
+              type="button"
+              className="btn btn-primary"
+              onClick={closeModal}
+          >
+            Close
+          </button>
+        </Modal>
         {user !== null ? (
-          inProfileMode === false ? (
             <>
               {JSON.parse(localStorage.getItem("user")).role === "admin" && (
                 <div className="nav nav-item ps-2 pe-2">
@@ -112,32 +161,9 @@ const Navbar = ({ inProfileMode = false }) => {
                 </button>
               </li>
             </>
-          ) : (
-            <>
-              {JSON.parse(localStorage.getItem("user")).role === "admin" && (
-                <div className="nav nav-item ps-2 pe-2">
-                  <Link
-                    className={`btn wd-profile-icon`}
-                    to={`/admin`}
-                    exact={true}
-                  >
-                    <i className="fas fa-bell"></i>
-                  </Link>
-                </div>
-              )}
-              <li className="nav nav-item ps-2 pe-2">
-                <button
-                  className="logout btn btn-danger wd-logout-btn wd-round-btn"
-                  onClick={logoutHandler}
-                >
-                  Logout
-                </button>
-              </li>
-            </>
-          )
         ) : (
           <>
-            <li className="nav nav-item ps-2 pe-2">
+            <li className="nav nav-item ps-3 pe-2">
               <Link
                 className="logout btn btn-success wd-logout-btn wd-round-btn"
                 to="/login"

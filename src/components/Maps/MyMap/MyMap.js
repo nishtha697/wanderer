@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 const PROFILE_API = "http://18.222.87.70:4000/api/user";
 
 const selectAllPosts = (state) => state.posts;
+
 const MyMap = () => {
   const posts = useSelector(selectAllPosts);
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const MyMap = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  let userId = user._id;
+  let userId = user && user._id;
 
   const location = useLocation();
   if (
@@ -29,7 +30,7 @@ const MyMap = () => {
   return (
     <>
       <Navbar inMapMode={true} />
-      <Maps posts={postList} userId={user._id} />
+      <Maps posts={postList} userId={userId} />
     </>
   );
 };

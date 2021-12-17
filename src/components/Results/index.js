@@ -18,7 +18,7 @@ const Results = (props) => {
     fetch(SEARCH_API, requestOptions)
       .then((res) => res.json())
       .then((p) => setPosts(p));
-  }, []);
+  }, [posts]);
 
   const noResults = ([posts]) => {
     if (posts === undefined) {
@@ -29,14 +29,13 @@ const Results = (props) => {
   };
 
   const [user, setUser] = useState();
-  // console.log(localStorage.getItem("user"));
   useEffect(() => {
     setUser(localStorage.getItem("user"));
   }, [user]);
 
-  const servicePosts = posts.filter((item) => item.visit_date === undefined);
+  const servicePosts = posts.filter((item) => item.visit_date === undefined || item.visit_date === null);
 
-  const userPosts = posts.filter((item) => item.visit_date !== undefined);
+  const userPosts = posts.filter((item) => item.visit_date !== undefined && item.visit_date !== null);
 
   return (
     <div className="container ">
