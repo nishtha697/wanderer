@@ -7,8 +7,6 @@ import Result from "./Result";
 
 const SEARCH_API = "http://localhost:4000/api/search";
 
-const test = [{ title: "Hello World" }, { title: "Hello Again" }];
-
 const Results = (props) => {
   let [posts, setPosts] = useState([]);
 

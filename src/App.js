@@ -18,7 +18,6 @@ import Login from "./components/Login";
 import Privacy from "./components/Privacy";
 import HomeScreen from "./components/HomeScreen";
 
-
 const reducer = combineReducers({ posts, user });
 
 const store = createStore(
@@ -27,26 +26,9 @@ const store = createStore(
 );
 
 function App() {
-  return (<>
+  return (
     <Provider store={store}>
       <BrowserRouter>
-        {/*<Route path="/" element={<HomeScreen/>}/>*/}
-        {/*<Route path="/login" element={<Login/>}/>*/}
-        {/*<Route path="/admin" exact={true} element={<AdminPanel/>} />*/}
-        {/*<Route path="/user" exact={true} element={<User/>} />*/}
-
-        {/*<Route path="/privacy" exact={true} element={<Privacy/>} />*/}
-
-        {/*<Route name="search" path="/search/:result" element={<SearchComponent/>} />*/}
-
-        {/*<Route path="/profile" exact={true} element={<Profile/>} />*/}
-
-        {/*<Route path="/profile/:id" element={<Profile/>} />*/}
-
-        {/*<Route path="/super" exact={true} element={<SuperMap/>} />*/}
-
-        {/*<Route path="/mymap" exact={true} element={<MyMap/>} />*/}
-
         <Route path={["/"]} exact={true}>
           <HomeScreen />
         </Route>
@@ -79,7 +61,6 @@ function App() {
         </Route>
       </BrowserRouter>
     </Provider>
-      </>
   );
 }
 

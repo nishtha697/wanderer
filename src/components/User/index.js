@@ -63,17 +63,19 @@ const User = () => {
       .then((res) => {
         console.log(res);
         if (newUser.role === "provider") {
-          setProvider({ ...provider, user_Id: res.data._id });
-          console.log(provider);
+          const prov = { ...provider, user_Id: res.data._id };
+          // setProvider({ ...provider, user_Id: res.data._id });
+          // console.log(prov);
           fetch("http://localhost:4000/api/registration", {
             method: "POST",
-            body: JSON.stringify(provider),
+            body: JSON.stringify(prov),
             headers: {
               "content-type": "application/json",
             },
           })
             .then((res) => res.json())
             .then((user) => {
+              console.log(user);
               if (user._id !== "") {
                 history.push("/");
               }

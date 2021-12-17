@@ -42,7 +42,11 @@ const Login = () => {
       localStorage.setItem("auth-token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.resUser));
       // console.log(localStorage.getItem("user"));
-      history.push("/");
+      if (res.data.resUser.role === "admin") {
+        history.push("/admin");
+      } else {
+        history.push("/");
+      }
 
       // console.log(loginRes.data.user);
     } catch (err) {
