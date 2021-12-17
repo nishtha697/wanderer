@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom";
 import NewPost from "../NewPost/NewPost";
 import ServiceList from "../ServiceProvider/ServiceList";
 
-const PROFILE_API = "http://localhost:4000/api/user";
+const PROFILE_API = "http://18.222.87.70:4000/api/user";
 
 function openEditProfile() {
   document.getElementById("wd-edit-profile-form").style.display = "block";
@@ -51,7 +51,7 @@ const Profile = () => {
       .then((user) => setUser(user));
 
     fetch(
-      `http://localhost:4000/api/provider/${
+      `http://18.222.87.70:4000/api/provider/${
         JSON.parse(localStorage.getItem("user"))._id
       }`
     )
@@ -120,7 +120,7 @@ const Profile = () => {
               <img
                 className={`rounded image ${!isFriendProfile && "editImage"}`}
                 alt="banner"
-                src={`http://localhost:4000/${user.cover_pic}`}
+                src={`http://18.222.87.70:4000/${user.cover_pic}`}
                 width="100%"
               />
               {!friendUserId && (
@@ -138,7 +138,7 @@ const Profile = () => {
                     !isFriendProfile && "editImageProfile"
                   }`}
                   alt="banner"
-                  src={`http://localhost:4000/${user.profile_pic}`}
+                  src={`http://18.222.87.70:4000/${user.profile_pic}`}
                   width="100px"
                   height="100px"
                   style={{ verticalAlign: "baseline" }}

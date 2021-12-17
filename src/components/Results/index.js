@@ -5,7 +5,7 @@ import { fetchAllPosts } from "../../services/postService";
 import "../../css/searchresults.css";
 import Result from "./Result";
 
-const SEARCH_API = "http://localhost:4000/api/search";
+const SEARCH_API = "http://18.222.87.70:4000/api/search";
 
 const Results = (props) => {
   let [posts, setPosts] = useState([]);

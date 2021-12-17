@@ -5,7 +5,7 @@ import Maps from "../index.js";
 import Navbar from "../../NavBar/Navbar";
 import {getCurrentProfile} from "../../../services/userService";
 import {useLocation} from "react-router-dom";
-const PROFILE_API = 'http://localhost:4000/api/user';
+const PROFILE_API = 'http://18.222.87.70:4000/api/user';
 
 const selectAllPosts = (state) => state.posts;
 const MyMap = () => {

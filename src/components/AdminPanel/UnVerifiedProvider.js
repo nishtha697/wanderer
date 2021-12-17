@@ -3,8 +3,8 @@ import {useState} from "react";
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 
-const USER_API = "http://localhost:4000/api/user"
-const PROVIDER_API = "http://localhost:4000/api/provider";
+const USER_API = "http://18.222.87.70:4000/api/user"
+const PROVIDER_API = "http://18.222.87.70:4000/api/provider";
 
 const UnVerifiedProvider = ({provider}) => {
 

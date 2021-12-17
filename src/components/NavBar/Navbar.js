@@ -14,7 +14,7 @@ const Navbar = ({ inProfileMode = false }) => {
 
   useEffect(() => {
     setUser(() => JSON.parse(localStorage.getItem("user")));
-  }, [user]);
+  }, [localStorage.getItem("user")]);
 
   let [lat, setLat] = useState(null);
   let [lng, setLng] = useState(null);
