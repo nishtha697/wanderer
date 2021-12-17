@@ -81,6 +81,7 @@ const Login = () => {
                             <input
                               type="password"
                               name="password"
+                              placeholder="Password"
                               className="form-control"
                               value={newUser.password}
                               onChange={handlePasswordChange}

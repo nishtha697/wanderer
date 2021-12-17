@@ -120,7 +120,7 @@ const Maps = ({ posts }) => {
                   onClick={() => popupMarker(post, latitude, longitude)}
                 />
               </Marker>
-              {post._id === currentPlaceId && post.visit_date !== undefined && (
+              {post._id === currentPlaceId && post.visit_date !== undefined && post.visit_date !== null && (
                 <Popup
                   key={post._id}
                   latitude={latitude}
@@ -160,8 +160,8 @@ const Maps = ({ posts }) => {
                 </Popup>
               )}
               {post._id === currentPlaceId &&
-                post.location !== undefined &&
-                post.visit_date === undefined && (
+               post.location !== undefined &&
+               (post.visit_date === undefined || post.visit_date === null) && (
                   <Popup
                     key={post._id}
                     latitude={latitude}
@@ -183,12 +183,15 @@ const Maps = ({ posts }) => {
                       {serviceTitlesMapByLocation
                         .get(post.location)
                         .map((title) => (
+                            <>
                           <Link className="wd-popup wd-popup-description wd-profile-link" to={{
                             pathname: `/profile/${user._id}`,
                             state: { user: user },
                           }}>
                             {title}
                           </Link>
+                            <br/>
+                            </>
                         ))}
                     </div>
                   </Popup>

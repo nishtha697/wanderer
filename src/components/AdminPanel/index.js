@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import UnVerifiedProvider from "./UnVerifiedProvider";
 
-const PROVIDER_API = "http://18.222.87.70:4000/api/provider/unverified";
+const PROVIDER_API = "http://18.222.87.70:4000/api/provider";
 
 const AdminPanel = () => {
   let [unverifiedProviders, setUnverifiedProviders] = useState([]);
@@ -22,11 +22,16 @@ const AdminPanel = () => {
     fetch(PROVIDER_API)
       .then((res) => res.json())
       .then((providers) => setUnverifiedProviders(providers));
-  }, []);
+  }, [unverifiedProviders]);
 
-  const validProviders = unverifiedProviders && unverifiedProviders.filter(
-    (provider) => provider.user_Id !== ""
-  );
+  let validProviders;
+
+  debugger;
+  // if (unverifiedProviders !== undefined && unverifiedProviders !== null) {
+  //   validProviders = unverifiedProviders.filter(
+  //       (provider) => provider.user_Id !== ""
+  //   );
+  // }
 
   return (
     <>
@@ -34,7 +39,7 @@ const AdminPanel = () => {
       <div className="container pt-5">
         <h2>Pending Approvals</h2>
         <ul className="list-group">
-          {validProviders && validProviders.map((p) => (
+          {unverifiedProviders && unverifiedProviders.map((p) => (
             <UnVerifiedProvider provider={p} />
           ))}
         </ul>
