@@ -4,7 +4,6 @@ import {useState} from "react";
 import {API_URL} from "./consts";
 import Privacy from "../Privacy/Privacy"
 
-// import Navigation from "../Nagivation";
 import Carousel from "../Caurosel/Caurosel"
 import Plane from "../Images/plane.jpg"
 

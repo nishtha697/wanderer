@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
-import UserContext from "../../context/UserContext";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import Navbar from "../NavBar/Navbar";
 
 const Login = () => {
@@ -16,57 +16,35 @@ const Login = () => {
     setNewUser({ ...newUser, email: e.target.value });
   };
 
-  // const [userData, setUserData] = useContext(UserContext);
-  const [userData, setUserData] = useState({});
+  let [error, setError] = useState();
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      // const loginUser = newUser;
       const formData = new FormData();
       formData.append("email", newUser.email);
       formData.append("password", newUser.password);
 
       const res = await axios.post(
-        "http://localhost:4000/users/login/",
+        "http://18.222.87.70:4000/users/login/",
         formData
       );
 
       console.log(res);
 
-      setUserData({
-        token: res.data.token,
-        user: res.data.resUser,
-      });
       localStorage.setItem("auth-token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.resUser));
-      console.log(localStorage.getItem("user"));
-      history.push("/");
 
-      // console.log(loginRes.data.user);
+      if (res.data.resUser.role === "admin") {
+        history.push("/admin");
+      } else {
+        history.push("/");
+      }
     } catch (err) {
-      console.log(err);
-      // err.response.data.msg && setError(err.response.data.msg);
+      setError("Invalid credentials. Please try again!");
     }
-
-    // fetch("http://localhost:4000/api/login", {
-    //   method: "POST",
-    //   body: JSON.stringify(newUser),
-    //   credentials: "include",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    // })
-    //   .then((status) => history.push("/"))
-    //   .catch((err) => console.log(err));
   };
   return (
-    // <div className="">
-    //   <form onSubmit={handleSubmit} encType="multipart/form-data">
-
-    //     <input type="submit" />
-    //   </form>
-    // </div>
     <>
       <Navbar />
       <section className="vh-100" style={{ backgroundColor: "#eee" }}>
@@ -93,9 +71,7 @@ const Login = () => {
                               onChange={handleEmailChange}
                               className="form-control"
                             />
-                            <label className="form-label" for="form3Example3c">
-                              Your Email
-                            </label>
+                            <label className="form-label">Your Email</label>
                           </div>
                         </div>
 
@@ -114,7 +90,7 @@ const Login = () => {
                             </label>
                           </div>
                         </div>
-
+                        {error && <p>{error}</p>}
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button
                             type="submit"
@@ -130,7 +106,7 @@ const Login = () => {
                       <img
                         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.png"
                         className="img-fluid"
-                        alt="Sample image"
+                        alt="Sample img"
                       />
                     </div>
                   </div>

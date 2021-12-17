@@ -2,45 +2,66 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
-import SearchComponent from "../SearchComponent";
-
+import Modal from "react-modal";
+import Privacy from "../Privacy/Privacy";
 import "./navbar.css";
 
-const Navbar = ({ inMapMode }) => {
+Modal.setAppElement("#root");
 
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "1000px",
+    height: "500px",
+  },
+};
+
+const Navbar = () => {
   let history = useHistory();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(() =>
+    JSON.parse(localStorage.getItem("user"))
+  );
+
+  useEffect(() => {
+    setUser(() => JSON.parse(localStorage.getItem("user")));
+  }, [localStorage.getItem("user")]);
 
   let [lat, setLat] = useState(null);
   let [lng, setLng] = useState(null);
   let [result, setResult] = useState("");
-  let [isSearched, setIsSearched] = useState(false);
+
   const _suggestionSelect = (result, lat, lng, text) => {
     setResult(result);
     const lt = Number(lat);
     const lang = Number(lng);
     setLat(lt);
     setLng(lang);
-
-    setIsSearched(true);
   };
 
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/api/profile", {
-  //     method: "POST",
-  //     credentials: "include",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((user) => console.log(user))
-  //     .catch((e) => history.push("/login"));
-  // }, [history]);
+  const logoutHandler = () => {
+    localStorage.clear();
+    setUser(null);
+    history.push("/");
+  };
 
-  //   if (isSearched) {
-  //     return <SearchComponent lat={lat} lng={lng} />;
-  //   }
   const handleSearchClick = () => {
     setResult("");
   };
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   return (
     <div className="nav justify-content-between sticky-top nav-pills shadow ps-5 pe-5 pt-2 pb-2 menu">
@@ -62,8 +83,6 @@ const Navbar = ({ inMapMode }) => {
               countries="us ae"
               resetSearch={false}
             />
-            {/* <input className="wd-search-twitter form-control" type="search"
-                            placeholder="Search Location" /> */}
             <Link
               to={{
                 pathname: `/search/${result}`,
@@ -85,34 +104,66 @@ const Navbar = ({ inMapMode }) => {
             </Link>
           </span>
         </div>
-
       </div>
       <ul className="nav navbar d-inline-flex justify-content-center">
-        {inMapMode === true && (
-            <div className="nav nav-item ps-2 pe-2">
-              <Link
+        <div
+            type="button"
+            className="wd-profile-icon nav nav-item ps-2 pe-2"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            onClick={openModal}
+        >
+          <i className="fas fa-file-signature"/>
+        </div>
+        <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel="Example Modal"
+        >
+          <Privacy />
+          <button
+              type="button"
+              className="btn btn-primary"
+              onClick={closeModal}
+          >
+            Close
+          </button>
+        </Modal>
+        {user !== null ? (
+            <>
+              {JSON.parse(localStorage.getItem("user")).role === "admin" && (
+                <div className="nav nav-item ps-2 pe-2">
+                  <Link
+                    className={`btn wd-profile-icon`}
+                    to={`/admin`}
+                    exact={true}
+                  >
+                    <i className="fas fa-bell"></i>
+                  </Link>
+                </div>
+              )}
+              <div className="nav nav-item ps-2 pe-2">
+                <Link
                   className={`btn wd-profile-icon`}
                   to={`/profile`}
                   exact={true}
-              >
-                <i className="fas fa-user"></i>
-              </Link>
-            </div>
-        )}
-        {!user && (
-          <li className="nav nav-item ps-2 pe-2">
-            <Link
-              className="logout btn btn-danger wd-logout-btn wd-round-btn"
-              to="/logout"
-            >
-              Logout
-            </Link>
-          </li>
-        )}
-
-        {user && (
+                >
+                  <i className="fas fa-user"></i>
+                </Link>
+              </div>
+              <li className="nav nav-item ps-2 pe-2">
+                <button
+                  className="logout btn btn-danger wd-logout-btn wd-round-btn"
+                  onClick={logoutHandler}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+        ) : (
           <>
-            <li className="nav nav-item ps-2 pe-2">
+            <li className="nav nav-item ps-3 pe-2">
               <Link
                 className="logout btn btn-success wd-logout-btn wd-round-btn"
                 to="/login"

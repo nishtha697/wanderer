@@ -1,41 +1,41 @@
-import React, {useEffect} from "react";
-import {useState} from "react/cjs/react.development";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchAllPosts} from "../../services/postService";
+import React, { useEffect } from "react";
+import { useState } from "react/cjs/react.development";
 import "../../css/searchresults.css";
 import Result from "./Result";
 
-const SEARCH_API = "http://localhost:4000/api/search";
-
-const test = [{title: "Hello World"}, {title: "Hello Again"}];
+const SEARCH_API = "http://18.222.87.70:4000/api/search";
 
 const Results = (props) => {
-    let [posts, setPosts] = useState([]);
+  let [posts, setPosts] = useState([]);
 
-    const requestOptions = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({latitude: props.lat, longitude: props.lng}),
-    };
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ latitude: props.lat, longitude: props.lng }),
+  };
 
-    useEffect(() => {
-        fetch(SEARCH_API, requestOptions)
-            .then((res) => res.json())
-            .then((p) => setPosts(p));
-    }, []);
+  useEffect(() => {
+    fetch(SEARCH_API, requestOptions)
+      .then((res) => res.json())
+      .then((p) => setPosts(p));
+  }, [posts]);
 
-    const noResults = ([posts]) => {
-        if (posts === undefined) {
-            return (
-                <li className="list-group-item wd-search-results">No search results</li>
-            );
-        }
+  const noResults = ([posts]) => {
+    if (posts === undefined) {
+      return (
+        <li className="list-group-item wd-search-results">No search results</li>
+      );
     }
   };
 
-  const servicePosts = posts.filter((item) => item.visit_date === undefined);
+  const [user, setUser] = useState();
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, [user]);
 
-  const userPosts = posts.filter((item) => item.visit_date !== undefined);
+  const servicePosts = posts.filter((item) => item.visit_date === undefined || item.visit_date === null);
+
+  const userPosts = posts.filter((item) => item.visit_date !== undefined && item.visit_date !== null);
 
   return (
     <div className="container ">
@@ -52,13 +52,15 @@ const Results = (props) => {
             ))}
             {noResults(servicePosts)}
           </div>
-          <div className="list-group mt-5">
-            <h6 className="list-group-item  wd-search-results">Posts</h6>
-            {userPosts.map((post) => (
-              <Result post={post} />
-            ))}
-            {noResults(userPosts)}
-          </div>
+          {user !== null && (
+            <div className="list-group mt-5">
+              <h6 className="list-group-item  wd-search-results">Posts</h6>
+              {userPosts.map((post) => (
+                <Result post={post} />
+              ))}
+              {noResults(userPosts)}
+            </div>
+          )}
         </div>
         <div className="col-2"></div>
       </div>

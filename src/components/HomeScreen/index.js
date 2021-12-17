@@ -2,30 +2,62 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import ReactMapGL, { Marker } from "react-map-gl";
 import Navbar from "../NavBar/Navbar";
+import { useDispatch } from "react-redux";
+const POST_API = "http://18.222.87.70:4000/api/posts";
 
 const HomeScreen = () => {
-  //******** Code to get the current logged in user */
+  const [user, setUser] = useState();
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, [user]);
 
-  console.log(localStorage.getItem("user"));
-
-  /************************************************ */
   const [viewport, setViewport] = useState({
-    width: "100vw",
-    height: "50vh",
+    width: "100%",
+    height: "45vh",
     latitude: 42.95,
     longitude: -74.23,
     zoom: 12,
   });
+  const dispatch = useDispatch();
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    setViewport({
-      width: "100%",
-      height: "50vh",
-      latitude: 42.3601,
-      longitude: -71.0589,
-      zoom: 12,
-    });
-  }, []);
+    fetch(POST_API)
+      .then((response) => response.json())
+      .then((posts) => {
+        setPosts(posts);
+        dispatch({
+          type: "fetch-all-posts",
+          posts,
+        });
+        if (localStorage.getItem("user") !== null) {
+          console.log(localStorage.getItem("user"));
+          console.log(JSON.parse(localStorage.getItem("user"))._id);
+          const userPosts = posts.filter(
+            (post) =>
+              post.user_Id === JSON.parse(localStorage.getItem("user"))._id
+          );
+          setPosts(userPosts);
+          setViewport({
+            width: "100%",
+            height: "45vh",
+            latitude: userPosts.length !== 0 ? userPosts[0].latitude : 42.95,
+            longitude: userPosts.length !== 0 ? userPosts[0].longitude : -74.23,
+            zoom: 12,
+          });
+        } else {
+          setViewport({
+            width: "100%",
+            height: "45vh",
+            latitude: posts[0].latitude,
+            longitude: posts[0].longitude,
+            zoom: 12,
+          });
+        }
+      });
+  }, [localStorage.getItem("user")]);
+
+  const recentPosts = posts.slice(0, 3);
 
   return (
     <>
@@ -37,27 +69,35 @@ const HomeScreen = () => {
         mapStyle="mapbox://styles/safak/cknndpyfq268f17p53nmpwira"
         transitionDuration="10"
       >
-        <Marker
-          latitude={42.3601}
-          longitude={-71.0589}
-          offsetLeft={-20}
-          offsetTop={-10}
-        >
-          <i
-            className="fas fa-map-marker-alt"
-            style={{
-              fontSize: 2 * viewport.zoom,
-              color: "orangered",
-              cursor: "pointer",
-            }}
-          />
-        </Marker>
+        {recentPosts.map((post) => {
+          return (
+            <Marker
+              latitude={post.latitude}
+              longitude={post.longitude}
+              offsetLeft={-20}
+              offsetTop={-10}
+            >
+              <i
+                className="fas fa-map-marker-alt"
+                style={{
+                  fontSize: 2 * viewport.zoom,
+                  color: "orangered",
+                  cursor: "pointer",
+                }}
+              />
+            </Marker>
+          );
+        })}
       </ReactMapGL>
       <hr />
       <div className="container">
         <div className="row">
           <div className="col-lg-4">
-            <img src="/images/connect.jpg" className="connect" />
+            <img
+              src="/images/connect.jpg"
+              className="connect"
+              alt="connect-img"
+            />
             <h2>Connect</h2>
             <p>
               Want to share some of your best moments with everyone out there?
@@ -66,7 +106,11 @@ const HomeScreen = () => {
             </p>
           </div>
           <div className="col-lg-4">
-            <img src="/images/location.jpg" className="connect" />
+            <img
+              src="/images/location.jpg"
+              className="connect"
+              alt="location-img"
+            />
             <h2>Experience</h2>
             <p>
               With Wanderer, you can explore places which you have never visited
@@ -75,7 +119,11 @@ const HomeScreen = () => {
             </p>
           </div>
           <div className="col-lg-4">
-            <img src="/images/service-provider.jpg" className="connect" />
+            <img
+              src="/images/service-provider.jpg"
+              className="connect"
+              alt="provider-img"
+            />
             <h2>Business</h2>
             <p>
               Want to grow your business? Join us on Wanderer where you can
