@@ -29,8 +29,8 @@ const User = () => {
     role: "user",
     name: "",
     birthdate: "",
-    photo: "http://localhost:4000/default_profile_picture.jpeg",
-    cover: "http://localhost:4000/default_banner.jpeg",
+    photo: "http://18.222.87.70:4000/default_profile_picture.jpeg",
+    cover: "http://18.222.87.70:4000/default_banner.jpeg",
     lastname: "",
     password: "",
     email: "",
@@ -59,13 +59,13 @@ const User = () => {
     formData.append("description", newUser.description);
 
     axios
-      .post("http://localhost:4000/users/add/", formData)
+      .post("http://18.222.87.70:4000/users/add/", formData)
       .then((res) => {
         console.log(res);
         if (newUser.role === "provider") {
           setProvider({ ...provider, user_Id: res.data._id });
           console.log(provider);
-          fetch("http://localhost:4000/api/registration", {
+          fetch("http://18.222.87.70:4000/api/registration", {
             method: "POST",
             body: JSON.stringify(provider),
             headers: {

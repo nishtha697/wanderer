@@ -6,7 +6,7 @@ import {getCurrentProfile} from "../../services/userService";
 import {format} from "timeago.js";
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
-const PROFILE_API = 'http://localhost:4000/api/user';
+const PROFILE_API = 'http://18.222.87.70:4000/api/user';
 
 const Maps = ({posts}) => {
 

@@ -23,13 +23,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      // const loginUser = newUser;
       const formData = new FormData();
       formData.append("email", newUser.email);
       formData.append("password", newUser.password);
 
       const res = await axios.post(
-        "http://localhost:4000/users/login/",
+        "http://18.222.87.70:4000/users/login/",
         formData
       );
 

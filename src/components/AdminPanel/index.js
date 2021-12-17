@@ -3,7 +3,7 @@ import { useState } from "react";
 import Navbar from "../NavBar/Navbar";
 import UnVerifiedProvider from "./UnVerifiedProvider";
 
-const PROVIDER_API = "http://localhost:4000/api/provider/unverified";
+const PROVIDER_API = "http://18.222.87.70:4000/api/provider/unverified";
 
 const AdminPanel = () => {
   let [unverifiedProviders, setUnverifiedProviders] = useState([]);

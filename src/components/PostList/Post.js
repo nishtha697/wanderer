@@ -14,7 +14,7 @@ const Post = ({posts}) => {
     const [user, setUser] = useState({});
 
     useEffect(() => {
-        fetch(`http://localhost:4000/api/user/${latestPost.user_Id}`)
+        fetch(`http://18.222.87.70:4000/api/user/${latestPost.user_Id}`)
             .then(response => response.json())
             .then((user) => setUser(user))
     }, []);
@@ -52,7 +52,7 @@ const Post = ({posts}) => {
             <div className="row">
                 <div className="col-1">
                     <img className="wd-profile-image"
-                         src={`http://localhost:4000/${user.profile_pic}`}
+                         src={`http://18.222.87.70:4000/${user.profile_pic}`}
                          alt="profile image"/>
                 </div>
                 <div className="col-11 wd-image-content">

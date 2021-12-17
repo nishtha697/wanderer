@@ -9,7 +9,7 @@ import {useLocation} from 'react-router-dom'
 import NewPost from "../NewPost/NewPost";
 import ServiceList from "../ServiceProvider/ServiceList";
 
-const PROFILE_API = 'http://localhost:4000/api/user';
+const PROFILE_API = 'http://18.222.87.70:4000/api/user';
 
 function openEditProfile() {
     document.getElementById("wd-edit-profile-form").style.display = "block";
@@ -24,7 +24,7 @@ const Profile = () => {
     debugger;
     // const userData = (state) => state.user;
     // let user = useSelector(userData);
-    const [user, setUser] = useState([]);
+    let [user, setUser] = useState([]);
     const location = useLocation()
     let isFriendProfile = false;
     let friendUserId = undefined;
@@ -47,7 +47,7 @@ const Profile = () => {
         fetch(`${PROFILE_API}/${JSON.parse(localStorage.getItem("user"))._id}`)
             .then(response => response.json()).then((user) => setUser(user))
 
-        fetch(`http://localhost:4000/api/provider/${JSON.parse(localStorage.getItem("user"))._id}`)
+        fetch(`http://18.222.87.70:4000/api/provider/${JSON.parse(localStorage.getItem("user"))._id}`)
             .then(response => response.json())
             .then((provider) => setProvider(provider))
 
@@ -107,7 +107,7 @@ const Profile = () => {
                         <div className="profile-header">
                             <img className={`rounded image ${!isFriendProfile && "editImage"}`}
                                  alt="banner"
-                                 src={`http://localhost:4000/${user.cover_pic}`}
+                                 src={`http://18.222.87.70:4000/${user.cover_pic}`}
                                  width="100%"/>
                             {!friendUserId && <div className="edit-banner">
                                 <button type="button" className="edit btn btn-primary">
@@ -120,7 +120,7 @@ const Profile = () => {
                                 <img className={`rounded-circle imageProfile ${!isFriendProfile
                                                                                && "editImageProfile"}`}
                                      alt="banner"
-                                     src={`http://localhost:4000/${user.profile_pic}`}
+                                     src={`http://18.222.87.70:4000/${user.profile_pic}`}
                                      width="100px" height="100px"
                                      style={{verticalAlign: "baseline"}}/>
                                 {!friendUserId && <div className="edit-profile">

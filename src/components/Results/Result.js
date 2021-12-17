@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
-const USER_API = "http://localhost:4000/api/user";
+const USER_API = "http://18.222.87.70:4000/api/user";
 
 const Result = ({post}) => {
 
@@ -18,7 +18,7 @@ const Result = ({post}) => {
         <div className="row">
             <div className="col-1">
                 <img className="wd-profile-image"
-                     src={`http://localhost:4000/${provider.profile_pic}`}
+                     src={`http://18.222.87.70:4000/${provider.profile_pic}`}
                      alt="profile image"/>
             </div>
             <div className="col-11 wd-image-content">

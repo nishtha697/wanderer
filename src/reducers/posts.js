@@ -1,6 +1,5 @@
-import enteries from './data/enteries.json';
 
-const posts = (state = enteries, action) => {
+const posts = (state = [], action) => {
     switch (action.type) {
         case 'fetch-all-posts':
             return (action.posts)

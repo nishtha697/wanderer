@@ -3,7 +3,7 @@ import "./index.css";
 import ReactMapGL, {Marker} from "react-map-gl";
 import Navbar from "../NavBar/Navbar";
 import {useDispatch} from "react-redux";
-const POST_API = 'http://localhost:4000/api/posts';
+const POST_API = 'http://18.222.87.70:4000/api/posts';
 
 const HomeScreen = () => {
     //******** Code to get the current logged in user */
